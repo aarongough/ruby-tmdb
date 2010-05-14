@@ -1,10 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_helper.rb'))
 
 class TmdbMovieTest < Test::Unit::TestCase
-
-  def setup  
-    
-  end
   
   test "find by id, title & imdb should all return the full movie data" do
     @test_movies = []
@@ -204,11 +200,5 @@ class TmdbMovieTest < Test::Unit::TestCase
     assert_kind_of movie, "TmdbMovie"
     assert_equal sorted_movies.first, movie
   end
-  
-  private
-  
-    def tmdb_movie_should_reflect_remote_data(tmdb_movie)
-      
-    end
 
 end
