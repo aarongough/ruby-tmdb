@@ -18,12 +18,15 @@ class TmdbCastTest < Test::Unit::TestCase
       assert_equal @cast_data["birthplace"], actor.birthplace
       assert_equal @cast_data["url"], actor.url
       @cast_data["filmography"].each_index do |x|
-        assert_equal @cast_data["filmography"][x]["name"], actor.movies[x].name
-        assert_equal @cast_data["filmography"][x]["id"], actor.movies[x].id
-        assert_equal @cast_data["filmography"][x]["job"], actor.movies[x].job
-        assert_equal @cast_data["filmography"][x]["department"], actor.movies[x].department
-        assert_equal @cast_data["filmography"][x]["character"], actor.movies[x].character
-        assert_equal @cast_data["filmography"][x]["url"], actor.movies[x].url
+        assert_equal @cast_data["filmography"][x]["name"], actor.filmography[x].name
+        assert_equal @cast_data["filmography"][x]["id"], actor.filmography[x].id
+        assert_equal @cast_data["filmography"][x]["job"], actor.filmography[x].job
+        assert_equal @cast_data["filmography"][x]["department"], actor.filmography[x].department
+        assert_equal @cast_data["filmography"][x]["character"], actor.filmography[x].character
+        assert_equal @cast_data["filmography"][x]["url"], actor.filmography[x].url
+      end
+      @cast_data["filmography"].each_index do |x|
+        assert_equal TmdbMovie.find(:id => @cast_data["filmography"][x]["id"]), actor.movies[x]
       end
       @cast_data["profile"].each_index do |x|
         assert_equal @cast_data["profile"][x]["image"]["type"], actor.profiles[x].type
