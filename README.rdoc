@@ -11,6 +11,9 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org}[http://www.t
   require 'rubygems'
   require 'ruby-tmdb'
   
+  # setup your API key
+  Tmdb.api_key = "t478f8de5776c799de5a"
+  
   @movie = TmdbMovie.find(:title => "Iron Man", :limit => 1)
   # => <TmdbMovie>
   
