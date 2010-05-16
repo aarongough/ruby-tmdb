@@ -4,7 +4,7 @@ class TmdbMovieTest < Test::Unit::TestCase
   
   test "find by id should return the full movie data" do
     movie = TmdbMovie.find(:id => 187)
-    @movie_data = YAML::load(Tmdb.get_url("http://api.themoviedb.org/2.1/Movie.getInfo/en/yaml/#{Tmdb.api_key}/187").body)[0]
+    @movie_data = Tmdb.api_call('Movie.getInfo', 187)[0]
     assert_equal @movie_data["popularity"], movie.popularity
     assert_equal @movie_data["translated"], movie.translated
     assert_equal @movie_data["language"], movie.language
@@ -75,7 +75,7 @@ class TmdbMovieTest < Test::Unit::TestCase
   
   test "find by imdb should return the full movie data" do
     movie = TmdbMovie.find(:imdb => "tt0401792")
-    @movie_data = YAML::load(Tmdb.get_url("http://api.themoviedb.org/2.1/Movie.getInfo/en/yaml/#{Tmdb.api_key}/187").body)[0]
+    @movie_data = Tmdb.api_call('Movie.getInfo', 187)[0]
     assert_equal @movie_data["popularity"], movie.popularity
     assert_equal @movie_data["translated"], movie.translated
     assert_equal @movie_data["language"], movie.language
@@ -145,7 +145,7 @@ class TmdbMovieTest < Test::Unit::TestCase
   
   test "find by title should return the full movie data" do
     movie = TmdbMovie.find(:title => "Sin City", :limit => 1)
-    @movie_data = YAML::load(Tmdb.get_url("http://api.themoviedb.org/2.1/Movie.getInfo/en/yaml/#{Tmdb.api_key}/187").body)[0]
+    @movie_data = Tmdb.api_call('Movie.getInfo', 187)[0]
     assert_equal @movie_data["popularity"], movie.popularity
     assert_equal @movie_data["translated"], movie.translated
     assert_equal @movie_data["language"], movie.language
