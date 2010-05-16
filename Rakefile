@@ -14,6 +14,8 @@ begin
     gemspec.email = "aaron@aarongough.com"
     gemspec.homepage = "https://github.com/aarongough/ruby-tmdb"
     gemspec.authors = ["Aaron Gough"]
+    gemspec.rdoc_options << '--line-numbers' << '--inline-source'
+    gemspec.extra_rdoc_files = ['README.rdoc', 'MIT-LICENSE']
     gemspec.add_development_dependency "webmock"
   end
 rescue LoadError
