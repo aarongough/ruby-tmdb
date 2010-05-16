@@ -44,6 +44,13 @@ class TmdbMovie
       if(value.is_a?(Array))
         value.each_index do |x|
           if(value[x].is_a?(Hash) && value[x].length == 1)
+            if(value[x].keys[0] == "image")
+              value[x][value[x].keys[0]].instance_eval <<-EOD
+                def self.data
+                  Tmdb.get_url(self["url"]).body
+                end
+              EOD
+            end
             value[x] = value[x][value[x].keys[0]]
           end
           if(value[x].is_a?(Hash))
