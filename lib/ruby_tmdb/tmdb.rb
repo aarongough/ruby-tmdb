@@ -1,11 +1,8 @@
 class Tmdb
   
-  require 'singleton'
   require 'net/http'
   require 'uri'
   require 'cgi'
-  
-  include Singleton
   
   @@api_key = ""
   @@api_response = {}
@@ -24,13 +21,13 @@ class Tmdb
   
   def self.api_call(method, data, language = "en")
     url = Tmdb.base_api_url + method + '/' + language + '/yaml/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
-    @@api_response[url] ||= begin
-      response = Tmdb.get_url(url)
-      if(response.code.to_i != 200)
-        return []
-      end
-      YAML::load(response.body)
+    response = @@api_response[url] ||= begin
+      Tmdb.get_url(url)
     end
+    if(response.code.to_i != 200)
+      return []
+    end
+    YAML::load(response.body)
   end
 
   # Get a URL and return a response object, follow upto 'limit' re-directs on the way
@@ -39,7 +36,6 @@ class Tmdb
     begin 
       response = Net::HTTP.get_response(URI.parse(uri_str))
     rescue
-      raise
       response = Net::HTTPBadRequest.new( '404', 404, "Not Found" )
       return response
     end 

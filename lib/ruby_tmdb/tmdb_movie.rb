@@ -31,7 +31,8 @@ class TmdbMovie
   end
   
   def initialize(raw_data)
-    @raw_data = raw_data.dup
+    @raw_data = raw_data
+    @raw_data = Tmdb.api_call('Movie.getInfo', @raw_data["id"]).first 
     @raw_data["credits"] = @raw_data["cast"]
     @raw_data.delete("cast")
     @raw_data.each_pair do |key, value|

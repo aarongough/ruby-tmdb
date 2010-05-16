@@ -58,6 +58,7 @@ class TmdbMovieTest < Test::Unit::TestCase
      # assert_equal Tmdb.get_url(@movie_data["backdrops"][x]["image"]["url"]), movie.backdrops[x].data
     end
     @movie_data["cast"].each_index do |x|
+      movie.credits[x].name
       assert_equal @movie_data["cast"][x]["name"], movie.credits[x].name
       assert_equal @movie_data["cast"][x]["job"], movie.credits[x].job
       assert_equal @movie_data["cast"][x]["department"], movie.credits[x].department
@@ -296,4 +297,5 @@ class TmdbMovieTest < Test::Unit::TestCase
 #    assert_equal sorted_movies.first, movie
 #  end
 #
+
 end

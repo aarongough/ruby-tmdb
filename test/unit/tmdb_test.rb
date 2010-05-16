@@ -89,5 +89,13 @@ class TmdbTest < Test::Unit::TestCase
     assert_kind_of Array, movies
     assert movies.empty?
   end
+  
+  test "API call cache should not be changed when data altered in the receiving method" do
+    person = Tmdb.api_call('Person.getInfo', 287)[0]
+    assert_not_nil person[person.keys[0]]
+    person[person.keys[0]] = nil
+    person = Tmdb.api_call('Person.getInfo', 287)[0]
+    assert_not_nil person[person.keys[0]]
+  end
 
 end
