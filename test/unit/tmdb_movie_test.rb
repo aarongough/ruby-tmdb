@@ -160,7 +160,7 @@ class TmdbMovieTest < Test::Unit::TestCase
       assert_equal @movie_data["backdrops"][x]["image"]["width"], movie.backdrops[x].width
       assert_equal @movie_data["backdrops"][x]["image"]["url"], movie.backdrops[x].url
       assert_equal @movie_data["backdrops"][x]["image"]["id"], movie.backdrops[x].id
-     # assert_equal Tmdb.get_url(@movie_data["backdrops"][x]["image"]["url"]), movie.backdrops[x].data
+      assert_equal Tmdb.get_url(@movie_data["backdrops"][x]["image"]["url"]), movie.backdrops[x].data
     end
     @movie_data["cast"].each_index do |x|
       assert_equal @movie_data["cast"][x]["name"], movie.credits[x].name
@@ -170,7 +170,7 @@ class TmdbMovieTest < Test::Unit::TestCase
       assert_equal @movie_data["cast"][x]["id"], movie.credits[x].id
       assert_equal @movie_data["cast"][x]["url"], movie.credits[x].url
       assert_equal @movie_data["cast"][x]["profile"], movie.credits[x].profile
-      #assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.credits[x].bio
+      assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.credits[x].bio
     end
     # @movie_data["cast"].each_index do |x|
     #   assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.cast[x]

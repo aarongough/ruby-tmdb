@@ -28,6 +28,11 @@ def register_api_url_stubs
       stub_request(:get, Regexp.new("http://example.com.*")).to_return(file)
     end
     
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "image.jpg")) do |file|
+      stub_request(:get, Regexp.new('http://i[0-9].themoviedb.org/[backdrops|posters|profiles].*')).to_return(file)
+    end
+    
+    
     stub_request(:get, 'http://thisisaurlthatdoesntexist.co.nz').to_return(:body => "", :status => 404, :headers => {'content-length' => 0})
   end
 end
