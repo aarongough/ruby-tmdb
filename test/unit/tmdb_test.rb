@@ -2,6 +2,10 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_helper.rb
 
 class TmdbTest < Test::Unit::TestCase
 
+  def setup
+    register_api_url_stubs
+  end
+
   test "allows setting of api_key" do
     old_api_key = Tmdb.api_key
     api_key = "test1234567890"

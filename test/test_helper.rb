@@ -1,7 +1,14 @@
+TEST_LIVE_API = false
+
 require 'rubygems'
 require 'test/unit'
 require 'yaml'
 require 'net/http'
+
+unless(TEST_LIVE_API)
+  require 'webmock/test_unit'
+  include WebMock
+end
 
 require_files = []
 require_files << File.join(File.dirname(__FILE__), '..', 'lib', 'ruby_tmdb.rb')

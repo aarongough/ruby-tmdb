@@ -2,6 +2,10 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_helper.rb
 
 class TmdbCastTest < Test::Unit::TestCase
 
+  def setup
+    register_api_url_stubs
+  end
+
 #  test "find by id and name should all return full cast data" do
 #    @test_cast_members = []
 #    @test_cast_members << TmdbCast.find(:id => 287)

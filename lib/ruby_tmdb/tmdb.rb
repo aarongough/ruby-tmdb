@@ -35,7 +35,7 @@ class Tmdb
     return false if limit == 0
     begin 
       response = Net::HTTP.get_response(URI.parse(uri_str))
-    rescue
+    rescue SocketError, Errno::ENETDOWN
       response = Net::HTTPBadRequest.new( '404', 404, "Not Found" )
       return response
     end 
@@ -43,7 +43,7 @@ class Tmdb
       when Net::HTTPSuccess     then response
       when Net::HTTPRedirection then get_url(response['location'], limit - 1)
     else
-      response
+      Net::HTTPBadRequest.new( '404', 404, "Not Found" )
     end
   end
   

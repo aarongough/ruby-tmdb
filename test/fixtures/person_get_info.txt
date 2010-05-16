@@ -1,0 +1,285 @@
+HTTP/1.1 200 OK
+Status: 200 OK
+Content-Type: text/x-yaml; charset=utf-8
+Transfer-Encoding: chunked
+Date: Sun, 16 May 2010 17:56:36 GMT
+X-Varnish: 4020226933 4014878543
+Age: 3962
+Via: 1.1 varnish
+Connection: keep-alive
+X-Cache: HIT
+
+--- 
+- popularity: 3
+  name: Brad Pitt
+  known_as: []
+
+  id: 287
+  biography: William Bradley "Brad" Pitt (born December 18, 1963) is an American actor and film producer. Pitt has received two Academy Award nominations and four Golden Globe Award nominations, winning one. He has been described as one of the world's most attractive men, a label for which he has received substantial media attention.
+  known_movies: 40
+  birthday: "1963-12-18"
+  birthplace: Shawnee, Oklahoma, United States
+  url: http://www.themoviedb.org/person/287
+  filmography: 
+  - name: Twelve Monkeys
+    id: 63
+    job: Actor
+    department: Actors
+    character: Jeffrey Goines
+    url: http://www.themoviedb.org/movie/63
+  - name: Snatch
+    id: 107
+    job: Actor
+    department: Actors
+    character: Mickey O'Neil
+    url: http://www.themoviedb.org/movie/107
+  - name: Ocean's Eleven
+    id: 161
+    job: Actor
+    department: Actors
+    character: Rusty Ryan
+    url: http://www.themoviedb.org/movie/161
+  - name: Ocean's Twelve
+    id: 163
+    job: Actor
+    department: Actors
+    character: Rusty Ryan
+    url: http://www.themoviedb.org/movie/163
+  - name: A River Runs Throught It
+    id: 293
+    job: Actor
+    department: Actors
+    character: " \tPaul Maclean"
+    url: http://www.themoviedb.org/movie/293
+  - name: Meet Joe Black
+    id: 297
+    job: Actor
+    department: Actors
+    character: Joe Black
+    url: http://www.themoviedb.org/movie/297
+  - name: Ocean's Thirteen
+    id: 298
+    job: Actor
+    department: Actors
+    character: " Robert \xE2\x80\x9CRusty\xE2\x80\x9D Charles Ryan"
+    url: http://www.themoviedb.org/movie/298
+  - name: True Romance
+    id: 319
+    job: Actor
+    department: Actors
+    character: Floyd
+    url: http://www.themoviedb.org/movie/319
+  - name: Being John Malkovich
+    id: 492
+    job: Actor
+    department: Actors
+    character: Himself
+    url: http://www.themoviedb.org/movie/492
+  - name: Fight Club
+    id: 550
+    job: Actor
+    department: Actors
+    character: Tyler Durden
+    url: http://www.themoviedb.org/movie/550
+  - name: Interview with the Vampire
+    id: 628
+    job: Actor
+    department: Actors
+    character: Louis de Pointe du Lac
+    url: http://www.themoviedb.org/movie/628
+  - name: Troy
+    id: 652
+    job: Actor
+    department: Actors
+    character: Achilles
+    url: http://www.themoviedb.org/movie/652
+  - name: Troy
+    id: 652
+    job: Other
+    department: Production
+    character: ""
+    url: http://www.themoviedb.org/movie/652
+  - name: "Mr. & Mrs. Smith "
+    id: 787
+    job: Actor
+    department: Actors
+    character: John Smith
+    url: http://www.themoviedb.org/movie/787
+  - name: Se7en
+    id: 807
+    job: Actor
+    department: Actors
+    character: Detective David Mills
+    url: http://www.themoviedb.org/movie/807
+  - name: Sleepers
+    id: 819
+    job: Actor
+    department: Actors
+    character: Michael Sullivan
+    url: http://www.themoviedb.org/movie/819
+  - name: Seven Years in Tibet
+    id: 978
+    job: Actor
+    department: Actors
+    character: Heinrich Harrer
+    url: http://www.themoviedb.org/movie/978
+  - name: Babel
+    id: 1164
+    job: Actor
+    department: Actors
+    character: Richard
+    url: http://www.themoviedb.org/movie/1164
+  - name: The Departed
+    id: 1422
+    job: Producer
+    department: Production
+    character: ""
+    url: http://www.themoviedb.org/movie/1422
+  - name: Spy Game
+    id: 1535
+    job: Actor
+    department: Actors
+    character: Tom Bishop
+    url: http://www.themoviedb.org/movie/1535
+  - name: "Thelma & Louise "
+    id: 1541
+    job: Actor
+    department: Actors
+    character: J.D.
+    url: http://www.themoviedb.org/movie/1541
+  - name: A Mighty Heart
+    id: 1988
+    job: Producer
+    department: Production
+    character: ""
+    url: http://www.themoviedb.org/movie/1988
+  - name: "Legends of the Fall "
+    id: 4476
+    job: Actor
+    department: Actors
+    character: Tristan Ludlow
+    url: http://www.themoviedb.org/movie/4476
+  - name: "The Devil's Own "
+    id: 4477
+    job: Actor
+    department: Actors
+    character: Frankie McGuire
+    url: http://www.themoviedb.org/movie/4477
+  - name: The Assassination of Jesse James by the Coward Robert Ford
+    id: 4512
+    job: Actor
+    department: Actors
+    character: Jesse James
+    url: http://www.themoviedb.org/movie/4512
+  - name: The Assassination of Jesse James by the Coward Robert Ford
+    id: 4512
+    job: Producer
+    department: Production
+    character: ""
+    url: http://www.themoviedb.org/movie/4512
+  - name: Confessions of a Dangerous Mind
+    id: 4912
+    job: Actor
+    department: Actors
+    character: Game Show Kandidat
+    url: http://www.themoviedb.org/movie/4912
+  - name: The Curious Case of Benjamin Button
+    id: 4922
+    job: Actor
+    department: Actors
+    character: Benjamin Button
+    url: http://www.themoviedb.org/movie/4922
+  - name: Burn After Reading
+    id: 4944
+    job: Actor
+    department: Actors
+    character: Chad Feldheimer
+    url: http://www.themoviedb.org/movie/4944
+  - name: The Mexican
+    id: 6073
+    job: Actor
+    department: Actors
+    character: Jerry Welbach
+    url: http://www.themoviedb.org/movie/6073
+  - name: Running with Scissors
+    id: 7510
+    job: Producer
+    department: Production
+    character: ""
+    url: http://www.themoviedb.org/movie/7510
+  - name: Dirty Tricks
+    id: 8947
+    job: Actor
+    department: Actors
+    character: John Dean
+    url: http://www.themoviedb.org/movie/8947
+  - name: Tree of Life
+    id: 8967
+    job: Actor
+    department: Actors
+    character: n.a.
+    url: http://www.themoviedb.org/movie/8967
+  - name: The Killer
+    id: 10504
+    job: Producer
+    department: Production
+    character: ""
+    url: http://www.themoviedb.org/movie/10504
+  - name: Kalifornia
+    id: 10909
+    job: Actor
+    department: Actors
+    character: Early Grayce
+    url: http://www.themoviedb.org/movie/10909
+  - name: Too Young to Die?
+    id: 10917
+    job: Actor
+    department: Actors
+    character: " \tBilly Canton"
+    url: http://www.themoviedb.org/movie/10917
+  - name: Cool World
+    id: 14239
+    job: Actor
+    department: Actors
+    character: Detective Frank Harris
+    url: http://www.themoviedb.org/movie/14239
+  - name: Sinbad - Legend of the Seven Seas
+    id: 14411
+    job: Actor
+    department: Actors
+    character: Sinbad
+    url: http://www.themoviedb.org/movie/14411
+  - name: Inglourious Basterds
+    id: 16869
+    job: Actor
+    department: Actors
+    character: "Lt. Aldo Raine "
+    url: http://www.themoviedb.org/movie/16869
+  - name: "The Hamster Factor and Other Tales of Twelve Monkeys "
+    id: 30565
+    job: Actor
+    department: Actors
+    character: Himself
+    url: http://www.themoviedb.org/movie/30565
+  profile: 
+  - image: 
+      type: profile
+      size: original
+      height: 1969
+      width: 1295
+      url: http://i3.themoviedb.org/profiles/00e/4bc977ad017a3c182400000e/brad-pitt-original.jpg
+      id: 4bc977ad017a3c182400000e
+  - image: 
+      type: profile
+      size: profile
+      height: 281
+      width: 185
+      url: http://i3.themoviedb.org/profiles/00e/4bc977ad017a3c182400000e/brad-pitt-profile.jpg
+      id: 4bc977ad017a3c182400000e
+  - image: 
+      type: profile
+      size: thumb
+      height: 68
+      width: 45
+      url: http://i2.themoviedb.org/profiles/00e/4bc977ad017a3c182400000e/brad-pitt-thumb.jpg
+      id: 4bc977ad017a3c182400000e

@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Server: Apache/2.2.3 (CentOS)
+Last-Modified: Tue, 15 Nov 2005 13:24:10 GMT
+ETag: "24ec5-1b6-4059a80bfd280"
+Accept-Ranges: bytes
+Content-Type: text/html; charset=UTF-8
+Connection: Keep-Alive
+Date: Sun, 16 May 2010 19:01:25 GMT
+Age: 6053   
+Content-Length: 438
+
+<HTML>
+<HEAD>
+  <TITLE>Example Web Page</TITLE>
+</HEAD> 
+<body>  
+<p>You have reached this web page by typing &quot;example.com&quot;,
+&quot;example.net&quot;,
+  or &quot;example.org&quot; into your web browser.</p>
+<p>These domain names are reserved for use in documentation and are not available 
+  for registration. See <a href="http://www.rfc-editor.org/rfc/rfc2606.txt">RFC 
+  2606</a>, Section 3.</p>
+</BODY>
+</HTML>
+

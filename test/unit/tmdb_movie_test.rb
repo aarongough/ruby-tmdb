@@ -1,6 +1,10 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_helper.rb'))
 
 class TmdbMovieTest < Test::Unit::TestCase
+
+  def setup
+    register_api_url_stubs
+  end
   
   test "find by id should return the full movie data" do
     movie = TmdbMovie.find(:id => 187)
