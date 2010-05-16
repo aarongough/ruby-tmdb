@@ -4,213 +4,17 @@ class TmdbMovieTest < Test::Unit::TestCase
   
   test "find by id should return the full movie data" do
     movie = TmdbMovie.find(:id => 187)
-    @movie_data = Tmdb.api_call('Movie.getInfo', 187)[0]
-    assert_equal @movie_data["popularity"], movie.popularity
-    assert_equal @movie_data["translated"], movie.translated
-    assert_equal @movie_data["language"], movie.language
-    assert_equal @movie_data["name"], movie.name
-    assert_equal @movie_data["alternative_name"], movie.alternative_name
-    assert_equal @movie_data["movie_type"], movie.movie_type
-    assert_equal @movie_data["id"], movie.id
-    assert_equal @movie_data["imdb_id"], movie.imdb_id
-    assert_equal @movie_data["url"], movie.url
-    assert_equal @movie_data["rating"], movie.rating
-    assert_equal @movie_data["tagline"], movie.tagline
-    assert_equal @movie_data["certification"], movie.certification
-    assert_equal @movie_data["overview"], movie.overview
-    assert_equal @movie_data["released"], movie.released
-    assert_equal @movie_data["runtime"], movie.runtime
-    assert_equal @movie_data["budget"], movie.budget
-    assert_equal @movie_data["revenue"], movie.revenue
-    assert_equal @movie_data["homepage"], movie.homepage
-    assert_equal @movie_data["trailer"], movie.trailer
-    assert_equal @movie_data["last_modified_at"], movie.last_modified_at
-    @movie_data["genres"].each_index do |x|
-      assert_equal @movie_data["genres"][x]["type"], movie.genres[x].type
-      assert_equal @movie_data["genres"][x]["url"], movie.genres[x].url
-      assert_equal @movie_data["genres"][x]["name"], movie.genres[x].name
-    end
-    @movie_data["studios"].each_index do |x|
-      assert_equal @movie_data["studios"][x]["url"], movie.studios[x].url
-      assert_equal @movie_data["studios"][x]["name"], movie.studios[x].name
-    end
-    @movie_data["countries"].each_index do |x|
-      assert_equal @movie_data["countries"][x]["code"], movie.countries[x].code
-      assert_equal @movie_data["countries"][x]["url"], movie.countries[x].url
-      assert_equal @movie_data["countries"][x]["name"], movie.countries[x].name
-    end
-    @movie_data["posters"].each_index do |x|
-      assert_equal @movie_data["posters"][x]["image"]["type"], movie.posters[x].type
-      assert_equal @movie_data["posters"][x]["image"]["size"], movie.posters[x].size
-      assert_equal @movie_data["posters"][x]["image"]["height"], movie.posters[x].height
-      assert_equal @movie_data["posters"][x]["image"]["width"], movie.posters[x].width
-      assert_equal @movie_data["posters"][x]["image"]["url"], movie.posters[x].url
-      assert_equal @movie_data["posters"][x]["image"]["id"], movie.posters[x].id
-      #assert_equal Tmdb.get_url(@movie_data["posters"][x]["image"]["url"]), movie.posters[x].data
-    end
-    @movie_data["backdrops"].each_index do |x|
-      assert_equal @movie_data["backdrops"][x]["image"]["type"], movie.backdrops[x].type
-      assert_equal @movie_data["backdrops"][x]["image"]["size"], movie.backdrops[x].size
-      assert_equal @movie_data["backdrops"][x]["image"]["height"], movie.backdrops[x].height
-      assert_equal @movie_data["backdrops"][x]["image"]["width"], movie.backdrops[x].width
-      assert_equal @movie_data["backdrops"][x]["image"]["url"], movie.backdrops[x].url
-      assert_equal @movie_data["backdrops"][x]["image"]["id"], movie.backdrops[x].id
-     # assert_equal Tmdb.get_url(@movie_data["backdrops"][x]["image"]["url"]), movie.backdrops[x].data
-    end
-    @movie_data["cast"].each_index do |x|
-      movie.credits[x].name
-      assert_equal @movie_data["cast"][x]["name"], movie.credits[x].name
-      assert_equal @movie_data["cast"][x]["job"], movie.credits[x].job
-      assert_equal @movie_data["cast"][x]["department"], movie.credits[x].department
-      assert_equal @movie_data["cast"][x]["character"], movie.credits[x].character
-      assert_equal @movie_data["cast"][x]["id"], movie.credits[x].id
-      assert_equal @movie_data["cast"][x]["url"], movie.credits[x].url
-      assert_equal @movie_data["cast"][x]["profile"], movie.credits[x].profile
-      #assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.credits[x].bio
-    end
-    # @movie_data["cast"].each_index do |x|
-    #   assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.cast[x]
-    # end
+    assert_movie_methodized(movie, 187)
   end
   
   test "find by imdb should return the full movie data" do
     movie = TmdbMovie.find(:imdb => "tt0401792")
-    @movie_data = Tmdb.api_call('Movie.getInfo', 187)[0]
-    assert_equal @movie_data["popularity"], movie.popularity
-    assert_equal @movie_data["translated"], movie.translated
-    assert_equal @movie_data["language"], movie.language
-    assert_equal @movie_data["name"], movie.name
-    assert_equal @movie_data["alternative_name"], movie.alternative_name
-    assert_equal @movie_data["movie_type"], movie.movie_type
-    assert_equal @movie_data["id"], movie.id
-    assert_equal @movie_data["imdb_id"], movie.imdb_id
-    assert_equal @movie_data["url"], movie.url
-    assert_equal @movie_data["rating"], movie.rating
-    assert_equal @movie_data["tagline"], movie.tagline
-    assert_equal @movie_data["certification"], movie.certification
-    assert_equal @movie_data["overview"], movie.overview
-    assert_equal @movie_data["released"], movie.released
-    assert_equal @movie_data["runtime"], movie.runtime
-    assert_equal @movie_data["budget"], movie.budget
-    assert_equal @movie_data["revenue"], movie.revenue
-    assert_equal @movie_data["homepage"], movie.homepage
-    assert_equal @movie_data["trailer"], movie.trailer
-    assert_equal @movie_data["last_modified_at"], movie.last_modified_at
-    @movie_data["genres"].each_index do |x|
-      assert_equal @movie_data["genres"][x]["type"], movie.genres[x].type
-      assert_equal @movie_data["genres"][x]["url"], movie.genres[x].url
-      assert_equal @movie_data["genres"][x]["name"], movie.genres[x].name
-    end
-    @movie_data["studios"].each_index do |x|
-      assert_equal @movie_data["studios"][x]["url"], movie.studios[x].url
-      assert_equal @movie_data["studios"][x]["name"], movie.studios[x].name
-    end
-    @movie_data["countries"].each_index do |x|
-      assert_equal @movie_data["countries"][x]["code"], movie.countries[x].code
-      assert_equal @movie_data["countries"][x]["url"], movie.countries[x].url
-      assert_equal @movie_data["countries"][x]["name"], movie.countries[x].name
-    end
-    @movie_data["posters"].each_index do |x|
-      assert_equal @movie_data["posters"][x]["image"]["type"], movie.posters[x].type
-      assert_equal @movie_data["posters"][x]["image"]["size"], movie.posters[x].size
-      assert_equal @movie_data["posters"][x]["image"]["height"], movie.posters[x].height
-      assert_equal @movie_data["posters"][x]["image"]["width"], movie.posters[x].width
-      assert_equal @movie_data["posters"][x]["image"]["url"], movie.posters[x].url
-      assert_equal @movie_data["posters"][x]["image"]["id"], movie.posters[x].id
-      #assert_equal Tmdb.get_url(@movie_data["posters"][x]["image"]["url"]), movie.posters[x].data
-    end
-    @movie_data["backdrops"].each_index do |x|
-      assert_equal @movie_data["backdrops"][x]["image"]["type"], movie.backdrops[x].type
-      assert_equal @movie_data["backdrops"][x]["image"]["size"], movie.backdrops[x].size
-      assert_equal @movie_data["backdrops"][x]["image"]["height"], movie.backdrops[x].height
-      assert_equal @movie_data["backdrops"][x]["image"]["width"], movie.backdrops[x].width
-      assert_equal @movie_data["backdrops"][x]["image"]["url"], movie.backdrops[x].url
-      assert_equal @movie_data["backdrops"][x]["image"]["id"], movie.backdrops[x].id
-     # assert_equal Tmdb.get_url(@movie_data["backdrops"][x]["image"]["url"]), movie.backdrops[x].data
-    end
-    @movie_data["cast"].each_index do |x|
-      assert_equal @movie_data["cast"][x]["name"], movie.credits[x].name
-      assert_equal @movie_data["cast"][x]["job"], movie.credits[x].job
-      assert_equal @movie_data["cast"][x]["department"], movie.credits[x].department
-      assert_equal @movie_data["cast"][x]["character"], movie.credits[x].character
-      assert_equal @movie_data["cast"][x]["id"], movie.credits[x].id
-      assert_equal @movie_data["cast"][x]["url"], movie.credits[x].url
-      assert_equal @movie_data["cast"][x]["profile"], movie.credits[x].profile
-      #assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.credits[x].bio
-    end
-    # @movie_data["cast"].each_index do |x|
-    #   assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.cast[x]
-    # end
+    assert_movie_methodized(movie, 187)
   end
   
   test "find by title should return the full movie data" do
     movie = TmdbMovie.find(:title => "Sin City", :limit => 1)
-    @movie_data = Tmdb.api_call('Movie.getInfo', 187)[0]
-    assert_equal @movie_data["popularity"], movie.popularity
-    assert_equal @movie_data["translated"], movie.translated
-    assert_equal @movie_data["language"], movie.language
-    assert_equal @movie_data["name"], movie.name
-    assert_equal @movie_data["alternative_name"], movie.alternative_name
-    assert_equal @movie_data["movie_type"], movie.movie_type
-    assert_equal @movie_data["id"], movie.id
-    assert_equal @movie_data["imdb_id"], movie.imdb_id
-    assert_equal @movie_data["url"], movie.url
-    assert_equal @movie_data["rating"], movie.rating
-    assert_equal @movie_data["tagline"], movie.tagline
-    assert_equal @movie_data["certification"], movie.certification
-    assert_equal @movie_data["overview"], movie.overview
-    assert_equal @movie_data["released"], movie.released
-    assert_equal @movie_data["runtime"], movie.runtime
-    assert_equal @movie_data["budget"], movie.budget
-    assert_equal @movie_data["revenue"], movie.revenue
-    assert_equal @movie_data["homepage"], movie.homepage
-    assert_equal @movie_data["trailer"], movie.trailer
-    assert_equal @movie_data["last_modified_at"], movie.last_modified_at
-    @movie_data["genres"].each_index do |x|
-      assert_equal @movie_data["genres"][x]["type"], movie.genres[x].type
-      assert_equal @movie_data["genres"][x]["url"], movie.genres[x].url
-      assert_equal @movie_data["genres"][x]["name"], movie.genres[x].name
-    end
-    @movie_data["studios"].each_index do |x|
-      assert_equal @movie_data["studios"][x]["url"], movie.studios[x].url
-      assert_equal @movie_data["studios"][x]["name"], movie.studios[x].name
-    end
-    @movie_data["countries"].each_index do |x|
-      assert_equal @movie_data["countries"][x]["code"], movie.countries[x].code
-      assert_equal @movie_data["countries"][x]["url"], movie.countries[x].url
-      assert_equal @movie_data["countries"][x]["name"], movie.countries[x].name
-    end
-    @movie_data["posters"].each_index do |x|
-      assert_equal @movie_data["posters"][x]["image"]["type"], movie.posters[x].type
-      assert_equal @movie_data["posters"][x]["image"]["size"], movie.posters[x].size
-      assert_equal @movie_data["posters"][x]["image"]["height"], movie.posters[x].height
-      assert_equal @movie_data["posters"][x]["image"]["width"], movie.posters[x].width
-      assert_equal @movie_data["posters"][x]["image"]["url"], movie.posters[x].url
-      assert_equal @movie_data["posters"][x]["image"]["id"], movie.posters[x].id
-      #assert_equal Tmdb.get_url(@movie_data["posters"][x]["image"]["url"]), movie.posters[x].data
-    end
-    @movie_data["backdrops"].each_index do |x|
-      assert_equal @movie_data["backdrops"][x]["image"]["type"], movie.backdrops[x].type
-      assert_equal @movie_data["backdrops"][x]["image"]["size"], movie.backdrops[x].size
-      assert_equal @movie_data["backdrops"][x]["image"]["height"], movie.backdrops[x].height
-      assert_equal @movie_data["backdrops"][x]["image"]["width"], movie.backdrops[x].width
-      assert_equal @movie_data["backdrops"][x]["image"]["url"], movie.backdrops[x].url
-      assert_equal @movie_data["backdrops"][x]["image"]["id"], movie.backdrops[x].id
-     # assert_equal Tmdb.get_url(@movie_data["backdrops"][x]["image"]["url"]), movie.backdrops[x].data
-    end
-    @movie_data["cast"].each_index do |x|
-      assert_equal @movie_data["cast"][x]["name"], movie.credits[x].name
-      assert_equal @movie_data["cast"][x]["job"], movie.credits[x].job
-      assert_equal @movie_data["cast"][x]["department"], movie.credits[x].department
-      assert_equal @movie_data["cast"][x]["character"], movie.credits[x].character
-      assert_equal @movie_data["cast"][x]["id"], movie.credits[x].id
-      assert_equal @movie_data["cast"][x]["url"], movie.credits[x].url
-      assert_equal @movie_data["cast"][x]["profile"], movie.credits[x].profile
-      #assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.credits[x].bio
-    end
-    # @movie_data["cast"].each_index do |x|
-    #   assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.cast[x]
-    # end
+    assert_movie_methodized(movie, 187)
   end
   
   test "should raise exception if no arguments supplied to find" do
@@ -297,5 +101,76 @@ class TmdbMovieTest < Test::Unit::TestCase
 #    assert_equal sorted_movies.first, movie
 #  end
 #
+
+  private
+  
+  def assert_movie_methodized(movie, movie_id)
+    @movie_data = Tmdb.api_call('Movie.getInfo', movie_id)[0]
+    assert_equal @movie_data["popularity"], movie.popularity
+    assert_equal @movie_data["translated"], movie.translated
+    assert_equal @movie_data["language"], movie.language
+    assert_equal @movie_data["name"], movie.name
+    assert_equal @movie_data["alternative_name"], movie.alternative_name
+    assert_equal @movie_data["movie_type"], movie.movie_type
+    assert_equal @movie_data["id"], movie.id
+    assert_equal @movie_data["imdb_id"], movie.imdb_id
+    assert_equal @movie_data["url"], movie.url
+    assert_equal @movie_data["rating"], movie.rating
+    assert_equal @movie_data["tagline"], movie.tagline
+    assert_equal @movie_data["certification"], movie.certification
+    assert_equal @movie_data["overview"], movie.overview
+    assert_equal @movie_data["released"], movie.released
+    assert_equal @movie_data["runtime"], movie.runtime
+    assert_equal @movie_data["budget"], movie.budget
+    assert_equal @movie_data["revenue"], movie.revenue
+    assert_equal @movie_data["homepage"], movie.homepage
+    assert_equal @movie_data["trailer"], movie.trailer
+    assert_equal @movie_data["last_modified_at"], movie.last_modified_at
+    @movie_data["genres"].each_index do |x|
+      assert_equal @movie_data["genres"][x]["type"], movie.genres[x].type
+      assert_equal @movie_data["genres"][x]["url"], movie.genres[x].url
+      assert_equal @movie_data["genres"][x]["name"], movie.genres[x].name
+    end
+    @movie_data["studios"].each_index do |x|
+      assert_equal @movie_data["studios"][x]["url"], movie.studios[x].url
+      assert_equal @movie_data["studios"][x]["name"], movie.studios[x].name
+    end
+    @movie_data["countries"].each_index do |x|
+      assert_equal @movie_data["countries"][x]["code"], movie.countries[x].code
+      assert_equal @movie_data["countries"][x]["url"], movie.countries[x].url
+      assert_equal @movie_data["countries"][x]["name"], movie.countries[x].name
+    end
+    @movie_data["posters"].each_index do |x|
+      assert_equal @movie_data["posters"][x]["image"]["type"], movie.posters[x].type
+      assert_equal @movie_data["posters"][x]["image"]["size"], movie.posters[x].size
+      assert_equal @movie_data["posters"][x]["image"]["height"], movie.posters[x].height
+      assert_equal @movie_data["posters"][x]["image"]["width"], movie.posters[x].width
+      assert_equal @movie_data["posters"][x]["image"]["url"], movie.posters[x].url
+      assert_equal @movie_data["posters"][x]["image"]["id"], movie.posters[x].id
+      #assert_equal Tmdb.get_url(@movie_data["posters"][x]["image"]["url"]), movie.posters[x].data
+    end
+    @movie_data["backdrops"].each_index do |x|
+      assert_equal @movie_data["backdrops"][x]["image"]["type"], movie.backdrops[x].type
+      assert_equal @movie_data["backdrops"][x]["image"]["size"], movie.backdrops[x].size
+      assert_equal @movie_data["backdrops"][x]["image"]["height"], movie.backdrops[x].height
+      assert_equal @movie_data["backdrops"][x]["image"]["width"], movie.backdrops[x].width
+      assert_equal @movie_data["backdrops"][x]["image"]["url"], movie.backdrops[x].url
+      assert_equal @movie_data["backdrops"][x]["image"]["id"], movie.backdrops[x].id
+     # assert_equal Tmdb.get_url(@movie_data["backdrops"][x]["image"]["url"]), movie.backdrops[x].data
+    end
+    @movie_data["cast"].each_index do |x|
+      assert_equal @movie_data["cast"][x]["name"], movie.credits[x].name
+      assert_equal @movie_data["cast"][x]["job"], movie.credits[x].job
+      assert_equal @movie_data["cast"][x]["department"], movie.credits[x].department
+      assert_equal @movie_data["cast"][x]["character"], movie.credits[x].character
+      assert_equal @movie_data["cast"][x]["id"], movie.credits[x].id
+      assert_equal @movie_data["cast"][x]["url"], movie.credits[x].url
+      assert_equal @movie_data["cast"][x]["profile"], movie.credits[x].profile
+      #assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.credits[x].bio
+    end
+    # @movie_data["cast"].each_index do |x|
+    #   assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.cast[x]
+    # end
+  end
 
 end
