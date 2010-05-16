@@ -1,0 +1,55 @@
+== ruby-tmdb
+
+ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org}[http://www.themoviedb.org/] ({TMDb}[http://www.themoviedb.org/]). ruby-tmdb is designed to make common tasks like retrieving all movies that have a given actor in them and fetching image data much easier than they would be if dealing directly with the URL based API. ruby-tmdb also provides query caching to minimize duplicate remote API queries.
+
+=== Installation
+
+  gem install ruby-tmdb
+  
+=== Usage
+
+  require 'rubygems'
+  require 'ruby-tmdb'
+  
+  @movie = TmdbMovie.find(:title => "Iron Man", :limit => 1)
+  # => <TmdbMovie>
+  
+  @movie.name
+  # => "Iron Man"
+  
+  @movie.posters.length
+  # => 12
+  
+  @movie.posters.first.data
+  # => [binary blob representing JPEG]
+  
+  @movie.cast.first.bio.movies
+  # => [<TmdbMovie>,<TmdbMovie>,<TmdbMovie>,<TmdbMovie>]
+  
+  @actor = TmdbCast.find(:name => "Brad Pitt", :limit => 1)
+  # => <TmdbCast>
+  
+  @actor.birthplace
+  # => "Shawnee, Oklahoma, United States"
+
+Find all movies whose titles match a given string
+
+  @movies = TmdbMovie.find(:title => 'Iron Man')
+  
+Find the movie most likely to be associated with a given title
+
+  @movie = TmdbMovie.find(:title => 'Sin City', :limit => 1)
+  
+Find a single movie by it's TMDb ID
+
+  @movie = TmdbMovie.find(:id => 187)
+  
+Find a single movie by it's IMDB ID
+
+  @movie = TmdbMovie.find(:imdb => 'tt0401792')
+  
+=== Author & Credits
+
+Author:: {Aaron Gough}[mailto:aaron@aarongough.com]
+
+Copyright (c) 2010 {Aaron Gough}[http://thingsaaronmade.com/] ({thingsaaronmade.com}[http://thingsaaronmade.com/]), released under the MIT license
