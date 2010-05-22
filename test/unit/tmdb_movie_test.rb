@@ -53,12 +53,14 @@ class TmdbMovieTest < Test::Unit::TestCase
     assert_kind_of TmdbMovie, TmdbMovie.find(:title => "Iron Man", :limit => 1)
   end
   
-  test "find by title with limit=2 should return an array of 2 movies" do
-    movies = TmdbMovie.find(:title => "Iron Man", :limit => 2)
-    assert_kind_of Array, movies
-    assert_equal 2, movies.length
-    movies.each do |movie|
-      assert_kind_of TmdbMovie, movie
+  test "find by title with limit=X should return an array of X movies" do
+    (2..5).each do |x|
+      movies = TmdbMovie.find(:title => "Iron Man", :limit => x)
+      assert_kind_of Array, movies
+      assert_equal x, movies.length
+      movies.each do |movie|
+        assert_kind_of TmdbMovie, movie
+      end
     end
   end
   

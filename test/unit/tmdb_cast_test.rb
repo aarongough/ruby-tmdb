@@ -66,6 +66,9 @@ class TmdbCastTest < Test::Unit::TestCase
       actors = TmdbCast.find(:name => "Vince", :limit => x)
       assert_kind_of Array, actors
       assert_equal x, actors.length
+      actors.each do |actor|
+        assert_kind_of TmdbCast, actor
+      end
     end
   end
   
