@@ -56,6 +56,19 @@ class TmdbCastTest < Test::Unit::TestCase
     end
   end
   
+  test "should only return a single item if limit=1" do
+    actor = TmdbCast.find(:name => "Vince", :limit => 1)
+    assert_kind_of TmdbCast, actor
+  end
+  
+  test "should return X items if limit=X" do
+    (2..5).each do |x|
+      actors = TmdbCast.find(:name => "Vince", :limit => x)
+      assert_kind_of Array, actors
+      assert_equal x, actors.length
+    end
+  end
+  
   private
   
     def assert_cast_methodized(actor, cast_id)
