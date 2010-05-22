@@ -11,6 +11,12 @@ class TmdbMovieTest < Test::Unit::TestCase
     assert_movie_methodized(movie, 187)
   end
   
+  test "movies with same data should be seen as equal" do
+    movie1 = TmdbMovie.find(:id => 187, :limit => 1)
+    movie2 = TmdbMovie.find(:id => 187, :limit => 1)
+    assert_equal movie1, movie2
+  end
+  
   test "find by imdb should return the full movie data" do
     movie = TmdbMovie.find(:imdb => "tt0401792")
     assert_movie_methodized(movie, 187)

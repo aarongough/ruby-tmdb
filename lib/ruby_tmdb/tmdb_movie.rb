@@ -71,5 +71,14 @@ class TmdbMovie
       end
     end
   end
+  
+  def raw_data
+    @raw_data
+  end
+  
+  def ==(other)
+    return false unless(other.is_a?(TmdbMovie))
+    return @raw_data == other.raw_data
+  end
     
 end
