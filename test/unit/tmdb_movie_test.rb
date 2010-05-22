@@ -170,7 +170,7 @@ class TmdbMovieTest < Test::Unit::TestCase
         assert_equal @movie_data["cast"][x]["id"], movie.cast[x].id
         assert_equal @movie_data["cast"][x]["url"], movie.cast[x].url
         assert_equal @movie_data["cast"][x]["profile"], movie.cast[x].profile
-        #assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"]), movie.credits[x].bio
+        assert_equal TmdbCast.find(:id => @movie_data["cast"][x]["id"], :limit => 1), movie.cast[x].bio
       end
     end
 

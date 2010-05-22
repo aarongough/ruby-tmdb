@@ -58,6 +58,13 @@ class TmdbMovie
                   self["#{key2}"]
                 end
               EOD
+              if(key == "cast")
+                value[x].instance_eval <<-EOD
+                  def self.bio
+                    TmdbCast.find(:id => #{value[x]["id"]}, :limit => 1)
+                  end
+                EOD
+              end
             end
           end
         end
