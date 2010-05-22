@@ -11,6 +11,12 @@ class TmdbCastTest < Test::Unit::TestCase
     assert_cast_methodized(cast, 287)
   end
   
+  test "two cast objects with same data should be equal" do
+    cast1 = TmdbCast.find(:id => 287, :limit => 1)
+    cast2 = TmdbCast.find(:id => 287, :limit => 1)
+    assert_equal cast1, cast2
+  end
+  
   test "find by name should return full cast data" do
     cast = TmdbCast.find(:name => "Brad Pitt").first
     assert_cast_methodized(cast, 287)

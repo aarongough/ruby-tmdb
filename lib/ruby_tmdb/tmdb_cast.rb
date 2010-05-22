@@ -64,4 +64,13 @@ class TmdbCast
     end
   end
   
+  def raw_data
+    @raw_data
+  end
+  
+  def ==(other)
+    return false unless(other.is_a?(TmdbCast))
+    @raw_data == other.raw_data
+  end
+  
 end
