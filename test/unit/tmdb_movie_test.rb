@@ -79,40 +79,6 @@ class TmdbMovieTest < Test::Unit::TestCase
       end
     end
   end
-  
-#    
-#  test "find by title with order=released should return array of movies ordered by release date descending" do
-#    sorted_movies = TmdbMovie.find(:title => "Iron Man").sort!{|a,b| a.released <=> b.released }
-#    ordered_movies = TmdbMovie.find(:title => "Iron Man", :order => "released")
-#    assert_kind_of Array, sorted_movies
-#    assert_kind_of Array, ordered_movies
-#    assert_equal sorted_movies, ordered_movies
-#  end
-#  
-#  test "find by title with order=released DESC should return array of movies ordered by release date descending" do
-#    sorted_movies = TmdbMovie.find(:title => "Iron Man").sort!{|a,b| a.released <=> b.released }
-#    ordered_movies = TmdbMovie.find(:title => "Iron Man", :order => "released DESC")
-#    assert_kind_of Array, sorted_movies
-#    assert_kind_of Array, ordered_movies
-#    assert_equal sorted_movies, ordered_movies
-#  end
-#  
-#  test "find by title with order=released ASC should return array of movies ordered by release date ascending" do
-#    sorted_movies = TmdbMovie.find(:title => "Iron Man").sort!{|a,b| b.released <=> a.released }
-#    ordered_movies = TmdbMovie.find(:title => "Iron Man", :order => "released ASC")
-#    assert_kind_of Array, sorted_movies
-#    assert_kind_of Array, ordered_movies
-#    assert_equal sorted_movies, ordered_movies
-#  end
-#  
-#  test "find by title with order=released and limit=1 should return single most recent movie" do
-#    sorted_movies = TmdbMovie.find(:title => "Iron Man").sort!{|a,b| a.released <=> b.released }
-#    movie = TmdbMovie.find(:title => "Iron Man", :order => "released", :limit => 1)
-#    assert_kind_of TmdbMovie, sorted_movies.first
-#    assert_kind_of TmdbMovie, movie
-#    assert_equal sorted_movies.first, movie
-#  end
-#
 
   private
     
