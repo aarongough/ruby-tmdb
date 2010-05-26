@@ -93,9 +93,6 @@ class TmdbCastTest < Test::Unit::TestCase
         assert_equal @cast_data["filmography"][x]["character"], actor.filmography[x].character
         assert_equal @cast_data["filmography"][x]["url"], actor.filmography[x].url
       end
-      #@cast_data["filmography"].each_index do |x|
-      #  assert_equal TmdbMovie.find(:id => @cast_data["filmography"][x]["id"]), actor.movies[x]
-      #end
       @cast_data["profile"].each_index do |x|
         assert_equal @cast_data["profile"][x]["image"]["type"], actor.profiles[x].type
         assert_equal @cast_data["profile"][x]["image"]["size"], actor.profiles[x].size
