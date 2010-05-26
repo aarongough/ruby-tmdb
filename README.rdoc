@@ -26,9 +26,6 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org}[http://www.t
   @movie.posters.first.data
   # => [binary blob representing JPEG]
   
-  @movie.cast.first.bio.movies
-  # => [<TmdbMovie>,<TmdbMovie>,<TmdbMovie>,<TmdbMovie>]
-  
   @actor = TmdbCast.find(:name => "Brad Pitt", :limit => 1)
   # => <TmdbCast>
   
