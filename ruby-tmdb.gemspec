@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ruby-tmdb}
-  s.version = "0.0.20"
+  s.version = "0.0.21"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Gough"]
@@ -36,9 +36,11 @@ Gem::Specification.new do |s|
      "test/fixtures/person_get_info.txt",
      "test/fixtures/person_search.txt",
      "test/setup/.gitignore",
+     "test/setup/setup_api_key.rb",
      "test/setup/test_unit_extensions.rb",
      "test/setup/url_mocks.rb",
      "test/test_helper.rb",
+     "test/unit/test_direct_require.rb",
      "test/unit/tmdb_cast_test.rb",
      "test/unit/tmdb_movie_test.rb",
      "test/unit/tmdb_test.rb"
@@ -49,9 +51,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{An ActiveRecord-style API wrapper for TheMovieDB.org}
   s.test_files = [
-    "test/setup/test_unit_extensions.rb",
+    "test/setup/setup_api_key.rb",
+     "test/setup/test_unit_extensions.rb",
      "test/setup/url_mocks.rb",
      "test/test_helper.rb",
+     "test/unit/test_direct_require.rb",
      "test/unit/tmdb_cast_test.rb",
      "test/unit/tmdb_movie_test.rb",
      "test/unit/tmdb_test.rb"
