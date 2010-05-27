@@ -3,6 +3,7 @@ class Tmdb
   require 'net/http'
   require 'uri'
   require 'cgi'
+  require 'yaml'
   
   @@api_key = ""
   @@api_response = {}
