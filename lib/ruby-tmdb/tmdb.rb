@@ -21,13 +21,19 @@ class Tmdb
   
   def self.api_call(method, data, language = "en")
     url = Tmdb.base_api_url + method + '/' + language + '/yaml/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
+    # Memoize this API call
     response = @@api_response[url] ||= begin
       Tmdb.get_url(url)
     end
     if(response.code.to_i != 200)
-      return []
+      return nil
     end
-    YAML::load(response.body)
+    body = YAML::load(response.body)
+    if( body.first.include?("Nothing found"))
+      return nil
+    else
+      return body
+    end
   end
 
   # Get a URL and return a response object, follow upto 'limit' re-directs on the way
