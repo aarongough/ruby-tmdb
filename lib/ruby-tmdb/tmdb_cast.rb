@@ -2,7 +2,7 @@ class TmdbCast
 
   def self.find(options)
     options = {
-      :expand_results => false
+      :expand_results => true
     }.merge(options)
   
     raise ArgumentError, "At least one of: id, name, should be supplied" if(options[:id].nil? && options[:name].nil?)
