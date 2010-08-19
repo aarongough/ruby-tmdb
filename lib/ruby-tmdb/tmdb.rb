@@ -67,7 +67,7 @@ class Tmdb
       end
       if(data["profile"])
         data["profiles"] = data["profile"]
-        data.delete("profile")
+        #data.delete("profile")
       end
     end
     object = DeepOpenStruct.load(data)

@@ -17,8 +17,8 @@ class TmdbCastTest < Test::Unit::TestCase
     assert_equal cast1, cast2
   end
   
-  test "find by name should return full cast data" do
-    cast = TmdbCast.find(:name => "Brad Pitt").first
+  test "find by name should return full cast data when :expand_results = true" do
+    cast = TmdbCast.find(:name => "Brad Pitt", :expand_results => true).first
     assert_cast_methodized(cast, 287)
   end
 
@@ -29,14 +29,14 @@ class TmdbCastTest < Test::Unit::TestCase
   end
 
   test "find by id should return a single cast member" do
-    assert_kind_of TmdbCast, TmdbCast.find(:id => 287)
+    assert_kind_of OpenStruct, TmdbCast.find(:id => 287)
   end
   
   test "find by name should return an array of cast members" do
     cast_members = TmdbCast.find(:name => "vince")
     assert_kind_of Array, cast_members
     cast_members.each do |actor|
-      assert_kind_of TmdbCast, actor
+      assert_kind_of OpenStruct, actor
     end
   end
   
@@ -58,7 +58,7 @@ class TmdbCastTest < Test::Unit::TestCase
   
   test "should only return a single item if limit=1" do
     actor = TmdbCast.find(:name => "Vince", :limit => 1)
-    assert_kind_of TmdbCast, actor
+    assert_kind_of OpenStruct, actor
   end
   
   test "should return X items if limit=X" do
@@ -67,7 +67,7 @@ class TmdbCastTest < Test::Unit::TestCase
       assert_kind_of Array, actors
       assert_equal x, actors.length
       actors.each do |actor|
-        assert_kind_of TmdbCast, actor
+        assert_kind_of OpenStruct, actor
       end
     end
   end
