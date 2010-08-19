@@ -4,6 +4,7 @@ class Tmdb
   require 'uri'
   require 'cgi'
   require 'yaml'
+  require 'deepopenstruct'
   
   @@api_key = ""
   @@api_response = {}
@@ -49,6 +50,19 @@ class Tmdb
     else
       Net::HTTPBadRequest.new( '404', 404, "Not Found" )
     end
+  end
+  
+  def self.data_to_object(data)
+    ["posters", "backdrops", "profile"].each do |image_array|
+      if(!data[image_array].nil? && data[image_array].length > 0)
+        data[image_array].each_index do |x|
+          data[image_array][x] = data[image_array][x]["image"]
+        end
+      end
+    end
+    object = DeepOpenStruct.load(data)
+    object.raw_data = data
+    return object
   end
   
 end
