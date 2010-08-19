@@ -1,12 +1,12 @@
-== ruby-tmdb
+= ruby-tmdb
 
-ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org}[http://www.themoviedb.org/] ({TMDb}[http://www.themoviedb.org/]). ruby-tmdb is designed to make common tasks like retrieving all movies that have a given actor in them and fetching image data much easier than they would be if dealing directly with the URL based API. ruby-tmdb also provides query caching to minimize duplicate remote API queries.
+ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org (TMDb)}[http://www.themoviedb.org/]. ruby-tmdb is designed to make common tasks much easier than they would be if dealing directly with the URL based API.
 
 === Installation
 
   gem install ruby-tmdb
   
-=== Usage
+=== Example
 
   require 'rubygems'
   require 'ruby-tmdb'
@@ -15,7 +15,7 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org}[http://www.t
   Tmdb.api_key = "t478f8de5776c799de5a"
   
   @movie = TmdbMovie.find(:title => "Iron Man", :limit => 1)
-  # => <TmdbMovie>
+  # => <OpenStruct>
   
   @movie.name
   # => "Iron Man"
@@ -26,28 +26,72 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org}[http://www.t
   @movie.posters.first.data
   # => [binary blob representing JPEG]
   
+<<<<<<< HEAD
   @actor = TmdbCast.find(:name => "Brad Pitt", :limit => 1)
   # => <TmdbCast>
-  
-  @actor.birthplace
-  # => "Shawnee, Oklahoma, United States"
+=======
+=== Usage
 
-Find all movies whose titles match a given string
+ruby-tmdb provides 2 main objects that you will use to query the API
+  
+  TmdbMovie
+  TmdbCast
+  
+These objects provide access to movie and cast listing respectively.
+
+Each object provides a find() method which accepts a number of options:
+
+  TmdbMovie.find(:id => 123, :title => "fight club", :imdb => 'tt0401792', :limit => 10, :expand_results => true)
+
+
+[:id]              specifies an individual movie via it's TMDb id
+[:title]           specifies a query string to look for in the movie titles
+[:imdb]            specifies an idividual movie via it's IMDB id
+[:limit]           specifies the maximum number of results to be returned
+[:expand_results]  The TMDb API by default returns only partial info for any API method that can return multiple results. When :expand_results is set to true ruby-tmdb automatically makes extra API calls to fetch the full information for each item. This can result in *very* slow requests though. If you only need basic information for a search listing then set this to false. Defaults to 'true'.
+  
+
+  TmdbCast.find( :id => 123, :name => "Brad", :limit => 1, :expand_results => true)
+  
+>>>>>>> development
+  
+[:id]              specifies an idividual cast member via their TMDb id
+[:name]            specifies a query string to look for in the cast names
+[:limit]           see TmdbMovie
+[:expand_results]  see TmdbMovie
+
+
+=== Usage Examples
+
+Find all movies whose titles match a given string:
 
   @movies = TmdbMovie.find(:title => 'Iron Man')
   
-Find the movie most likely to be associated with a given title
+Find the movie most likely to be associated with a given title:
 
   @movie = TmdbMovie.find(:title => 'Sin City', :limit => 1)
   
-Find a single movie by it's TMDb ID
+Find a single movie by it's TMDb ID:
 
   @movie = TmdbMovie.find(:id => 187)
   
-Find a single movie by it's IMDB ID
+Find a single movie by it's IMDB ID:
 
   @movie = TmdbMovie.find(:imdb => 'tt0401792')
   
+Find all cast members whose names match a given string:
+
+  @actors = TmdbCast.find(:name => 'Fred')
+  
+Find an individual cast member via their TMDb ID:
+
+  @actor = TmdbCast.find(:id => 101)
+
+
+=== Item information
+  
+To find out more about the information each object offers on retrieved items have a look at the {TMDb API Docs}[http://api.themoviedb.org/2.1]. For the most accurate information about the information available have a look at the data directly through ruby-tmdb by calling @item.raw_data.inspect
+
 === Author & Credits
 
 Author:: {Aaron Gough}[mailto:aaron@aarongough.com]

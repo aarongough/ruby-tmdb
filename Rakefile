@@ -16,6 +16,7 @@ begin
     gemspec.authors = ["Aaron Gough"]
     gemspec.rdoc_options << '--line-numbers' << '--inline-source'
     gemspec.extra_rdoc_files = ['README.rdoc', 'MIT-LICENSE']
+    gemspec.add_dependency "deepopenstruct"
     gemspec.add_development_dependency "webmock"
   end
 rescue LoadError

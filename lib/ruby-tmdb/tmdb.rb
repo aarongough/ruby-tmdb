@@ -4,6 +4,10 @@ class Tmdb
   require 'uri'
   require 'cgi'
   require 'yaml'
+<<<<<<< HEAD
+=======
+  require 'deepopenstruct'
+>>>>>>> development
   
   @@api_key = ""
   @@api_response = {}
@@ -23,10 +27,7 @@ class Tmdb
   def self.api_call(method, data, language = "en")
     raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
     url = Tmdb.base_api_url + method + '/' + language + '/yaml/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
-    # Memoize this API call
-    response = @@api_response[url] ||= begin
-      Tmdb.get_url(url)
-    end
+    response = Tmdb.get_url(url)
     if(response.code.to_i != 200)
       return nil
     end
@@ -53,6 +54,37 @@ class Tmdb
     else
       Net::HTTPBadRequest.new( '404', 404, "Not Found" )
     end
+  end
+  
+  def self.data_to_object(data)
+    object = DeepOpenStruct.load(data)
+    object.raw_data = data
+    ["posters", "backdrops", "profile"].each do |image_array_name|
+      if(object.respond_to?(image_array_name))
+        image_array = object.send(image_array_name)
+        image_array.each_index do |x|
+          image_array[x] = image_array[x].image
+          image_array[x].instance_eval <<-EOD
+            def self.data
+              return Tmdb.get_url(self.url).body
+            end
+          EOD
+        end
+      end
+      if(object.profile)
+        object.profiles = object.profile
+      end
+    end
+    unless(object.cast.nil?)
+      object.cast.each_index do |x|
+        object.cast[x].instance_eval <<-EOD
+          def self.bio
+            return TmdbCast.find(:id => self.id, :limit => 1)
+          end
+        EOD
+      end
+    end
+    return object
   end
   
 end

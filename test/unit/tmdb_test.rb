@@ -116,5 +116,43 @@ class TmdbTest < Test::Unit::TestCase
     person = Tmdb.api_call('Person.getInfo', 287)[0]
     assert_not_nil person[person.keys[0]]
   end
+  
+  test "data_to_object should create object from nested data structures" do
+    test_data = {
+      :test1 => [
+        1,2,3,4
+      ],
+      :test2 => 1
+    }
+    test_object = Tmdb.data_to_object(test_data)
+    assert_nothing_raised do
+      assert_equal [1,2,3,4], test_object.test1
+      assert_equal 1, test_object.test2
+    end
+  end
+  
+  test "data_to_object should include raw_data method that returns original data" do
+    test_data = {
+      :test1 => [1,2,3]
+    }
+    test_object = Tmdb.data_to_object(test_data)
+    assert_equal test_object.raw_data, test_data
+  end
+  
+  test "data_to_object should convert arrays containing images to nicer format" do
+    test_data = {
+      "backdrops" => [
+        {
+          "image" => {
+            :test => 1
+          }
+        }
+      ]
+    }
+    test_object = Tmdb.data_to_object(test_data)
+    assert_nothing_raised do
+      assert_equal 1, test_object.backdrops[0].test
+    end
+  end
 
 end
