@@ -26,10 +26,6 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org (TMDb)}[http:
   @movie.posters.first.data
   # => [binary blob representing JPEG]
   
-<<<<<<< HEAD
-  @actor = TmdbCast.find(:name => "Brad Pitt", :limit => 1)
-  # => <TmdbCast>
-=======
 === Usage
 
 ruby-tmdb provides 2 main objects that you will use to query the API
@@ -52,8 +48,6 @@ Each object provides a find() method which accepts a number of options:
   
 
   TmdbCast.find( :id => 123, :name => "Brad", :limit => 1, :expand_results => true)
-  
->>>>>>> development
   
 [:id]              specifies an idividual cast member via their TMDb id
 [:name]            specifies a query string to look for in the cast names
