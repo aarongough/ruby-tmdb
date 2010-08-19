@@ -53,25 +53,24 @@ class Tmdb
   end
   
   def self.data_to_object(data)
-    ["posters", "backdrops", "profile"].each do |image_array|
-      if(!data[image_array].nil? && data[image_array].length > 0)
-        data[image_array].each_index do |x|
-          data[image_array][x] = data[image_array][x]["image"] 
-          data[image_array][x] = OpenStruct.new(data[image_array][x])
-          data[image_array][x].instance_eval <<-EOD
+    object = DeepOpenStruct.load(data)
+    object.raw_data = data
+    ["posters", "backdrops", "profile"].each do |image_array_name|
+      if(object.respond_to?(image_array_name))
+        image_array = object.send(image_array_name)
+        image_array.each_index do |x|
+          image_array[x] = image_array[x].image
+          image_array[x].instance_eval <<-EOD
             def self.data
               return Tmdb.get_url(self.url).body
             end
           EOD
         end
       end
-      if(data["profile"])
-        data["profiles"] = data["profile"]
-        #data.delete("profile")
+      if(object.profile)
+        object.profiles = object.profile
       end
     end
-    object = DeepOpenStruct.load(data)
-    object.raw_data = data
     unless(object.cast.nil?)
       object.cast.each_index do |x|
         object.cast[x].instance_eval <<-EOD
