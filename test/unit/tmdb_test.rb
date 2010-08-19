@@ -28,6 +28,15 @@ class TmdbTest < Test::Unit::TestCase
     assert_equal 404, test_response.code.to_i
   end
   
+  test "api_call should raise exception if api_key is not set" do
+    old_api_key = Tmdb.api_key
+    Tmdb.api_key = ""
+    assert_raises ArgumentError do
+      Tmdb.api_call('Movie.search', 'Transformers')
+    end
+    Tmdb.api_key = old_api_key
+  end
+  
   test "should perform Movie.search API call and return array of results" do
     movies = Tmdb.api_call('Movie.search', 'Transformers')
     assert_kind_of Array, movies

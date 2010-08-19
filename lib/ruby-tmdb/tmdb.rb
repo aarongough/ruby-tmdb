@@ -22,6 +22,7 @@ class Tmdb
   end
   
   def self.api_call(method, data, language = "en")
+    raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
     url = Tmdb.base_api_url + method + '/' + language + '/yaml/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
     response = Tmdb.get_url(url)
     if(response.code.to_i != 200)

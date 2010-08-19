@@ -17,7 +17,8 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "MIT-LICENSE",
+    ".gitignore",
+     "MIT-LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
@@ -36,9 +37,11 @@ Gem::Specification.new do |s|
      "test/fixtures/person_get_info.txt",
      "test/fixtures/person_search.txt",
      "test/setup/.gitignore",
+     "test/setup/setup_api_key.rb",
      "test/setup/test_unit_extensions.rb",
      "test/setup/url_mocks.rb",
      "test/test_helper.rb",
+     "test/unit/test_direct_require.rb",
      "test/unit/tmdb_cast_test.rb",
      "test/unit/tmdb_movie_test.rb",
      "test/unit/tmdb_test.rb"
@@ -49,9 +52,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{An ActiveRecord-style API wrapper for TheMovieDB.org}
   s.test_files = [
-    "test/setup/test_unit_extensions.rb",
+    "test/setup/setup_api_key.rb",
+     "test/setup/test_unit_extensions.rb",
      "test/setup/url_mocks.rb",
      "test/test_helper.rb",
+     "test/unit/test_direct_require.rb",
      "test/unit/tmdb_cast_test.rb",
      "test/unit/tmdb_movie_test.rb",
      "test/unit/tmdb_test.rb"

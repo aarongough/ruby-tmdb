@@ -2,8 +2,6 @@ TEST_LIVE_API = false
 
 require 'rubygems'
 require 'test/unit'
-require 'yaml'
-require 'net/http'
 
 unless(TEST_LIVE_API)
   require 'webmock/test_unit'
@@ -18,6 +16,5 @@ require_files.each do |file|
   require File.expand_path(file)
 end
 
-File.open(File.join(File.dirname(__FILE__), 'setup', 'tmdb_api_key.txt')) do |file|
-  Tmdb.api_key = file.read
-end
+#load(File.join('unit', 'test_direct_require.rb'), true)
+system('ruby ' + File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'test_direct_require.rb')))
