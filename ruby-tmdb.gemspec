@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ruby-tmdb}
-  s.version = "0.0.21"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Gough"]
-  s.date = %q{2010-05-26}
+  s.date = %q{2010-07-21}
   s.description = %q{An ActiveRecord-style API wrapper for TheMovieDB.org}
   s.email = %q{aaron@aarongough.com}
   s.extra_rdoc_files = [
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
      "lib/ruby-tmdb/tmdb_cast.rb",
      "lib/ruby-tmdb/tmdb_movie.rb",
      "ruby-tmdb.gemspec",
+     "test/fixtures/blank_result.txt",
      "test/fixtures/example_com.txt",
      "test/fixtures/image.jpg",
      "test/fixtures/incorrect_api_url.txt",
