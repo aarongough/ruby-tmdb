@@ -55,6 +55,9 @@ Each object provides a find() method which accepts a number of options:
 
   TmdbMovie.find(:id => 123, :title => "fight club", :imdb => 'tt0401792', :limit => 10, :expand_results => true)
   
+
+
+
   id:: specifies a individual movie via it's TMDb id
   title:: specifies a query string to look for in the movie titles
   imdb:: specifies an idividual movie via it's IMDB id
