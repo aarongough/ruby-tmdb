@@ -56,12 +56,31 @@ class Tmdb
     ["posters", "backdrops", "profile"].each do |image_array|
       if(!data[image_array].nil? && data[image_array].length > 0)
         data[image_array].each_index do |x|
-          data[image_array][x] = data[image_array][x]["image"]
+          data[image_array][x] = data[image_array][x]["image"] 
+          data[image_array][x] = OpenStruct.new(data[image_array][x])
+          data[image_array][x].instance_eval <<-EOD
+            def self.data
+              return Tmdb.get_url(self.url).body
+            end
+          EOD
         end
+      end
+      if(data["profile"])
+        data["profiles"] = data["profile"]
+        data.delete("profile")
       end
     end
     object = DeepOpenStruct.load(data)
     object.raw_data = data
+    unless(object.cast.nil?)
+      object.cast.each_index do |x|
+        object.cast[x].instance_eval <<-EOD
+          def self.bio
+            return TmdbCast.find(:id => self.id, :limit => 1)
+          end
+        EOD
+      end
+    end
     return object
   end
   

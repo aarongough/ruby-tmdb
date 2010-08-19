@@ -34,23 +34,23 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
 
   test "find by id should return a single movie" do
-    assert_kind_of TmdbMovie, TmdbMovie.find(:id => 187)
+    assert_kind_of OpenStruct, TmdbMovie.find(:id => 187)
   end
   
   test "find by imdb should return a single movie" do
-    assert_kind_of TmdbMovie, TmdbMovie.find(:imdb => "tt0401792")
+    assert_kind_of OpenStruct, TmdbMovie.find(:imdb => "tt0401792")
   end
   
   test "find by title should return an array of movies" do
     movies = TmdbMovie.find(:title => "Iron Man")
     assert_kind_of Array, movies
     movies.each do |movie|
-      assert_kind_of TmdbMovie, movie
+      assert_kind_of OpenStruct, movie
     end
   end
     
   test "find by title with limit=1 should return a single movie" do
-    assert_kind_of TmdbMovie, TmdbMovie.find(:title => "Iron Man", :limit => 1)
+    assert_kind_of OpenStruct, TmdbMovie.find(:title => "Iron Man", :limit => 1)
   end
   
   test "find by title with limit=X should return an array of X movies" do
@@ -59,7 +59,7 @@ class TmdbMovieTest < Test::Unit::TestCase
       assert_kind_of Array, movies
       assert_equal x, movies.length
       movies.each do |movie|
-        assert_kind_of TmdbMovie, movie
+        assert_kind_of OpenStruct, movie
       end
     end
   end
