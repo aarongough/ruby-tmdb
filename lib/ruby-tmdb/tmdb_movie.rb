@@ -1,6 +1,10 @@
 class TmdbMovie
   
   def self.find(options)
+    options = {
+      :expand_results => false
+    }.merge(options)
+    
     raise ArgumentError, "At least one of: id, title, imdb should be supplied" if(options[:id].nil? && options[:imdb].nil? && options[:title].nil?)
     
     results = []
@@ -9,6 +13,7 @@ class TmdbMovie
     end
     unless(options[:imdb].nil? || options[:imdb].to_s.empty?)
       results << Tmdb.api_call("Movie.imdbLookup", options[:imdb])
+      options[:expand_results] = true
     end
     unless(options[:title].nil? || options[:title].to_s.empty?)
       results << Tmdb.api_call("Movie.search", options[:title])
@@ -21,7 +26,7 @@ class TmdbMovie
       results = results.slice(0, options[:limit])
     end
     
-    results.map!{|m| TmdbMovie.new(m) }
+    results.map!{|m| TmdbMovie.new(m, options[:expand_results]) }
     
     if(results.length == 1)
       return results[0]
@@ -30,9 +35,9 @@ class TmdbMovie
     end
   end
   
-  def initialize(raw_data)
+  def initialize(raw_data, expand_results = false)
     @raw_data = raw_data
-    @raw_data = Tmdb.api_call('Movie.getInfo', @raw_data["id"]).first
+    @raw_data = Tmdb.api_call('Movie.getInfo', @raw_data["id"]).first if(expand_results)
     @raw_data.each_pair do |key, value|
       instance_eval <<-EOD
         def #{key}
