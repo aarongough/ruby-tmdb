@@ -6,6 +6,13 @@ class TmdbCastTest < Test::Unit::TestCase
     register_api_url_stubs
   end
   
+  test "cast data should be able to be dumped and re-loaded" do
+    assert_nothing_raised do
+      cast = TmdbCast.find(:id => 287)
+      TmdbCast.new(cast.raw_data)
+    end
+  end
+  
   test "find by id should return full cast data" do
     cast = TmdbCast.find(:id => 287)
     assert_cast_methodized(cast, 287)
