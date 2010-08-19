@@ -4,10 +4,7 @@ class Tmdb
   require 'uri'
   require 'cgi'
   require 'yaml'
-<<<<<<< HEAD
-=======
   require 'deepopenstruct'
->>>>>>> development
   
   @@api_key = ""
   @@api_response = {}
