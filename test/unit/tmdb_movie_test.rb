@@ -6,6 +6,13 @@ class TmdbMovieTest < Test::Unit::TestCase
     register_api_url_stubs
   end
   
+  test "movie should be able to be dumped and re-loaded" do
+    assert_nothing_raised do
+      movie = TmdbMovie.find(:id => 187)
+      TmdbMovie.new(movie.raw_data)
+    end
+  end
+  
   test "find by id should return the full movie data" do
     movie = TmdbMovie.find(:id => 187)
     assert_movie_methodized(movie, 187)
