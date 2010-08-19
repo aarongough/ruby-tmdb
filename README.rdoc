@@ -55,19 +55,19 @@ Each object provides a find() method which accepts a number of options:
 
   TmdbMovie.find(:id => 123, :title => "fight club", :imdb => 'tt0401792', :limit => 10, :expand_results => true)
   
-  :id => specifies a individual movie via it's TMDb id
-  :title => specifies a query string to look for in the movie titles
-  :imdb => specifies an idividual movie via it's IMDB id
-  :limit => specifies the maximum number of results to be returned
-  :expand_results => The TMDb API by default returns only partial info for any API method that can return multiple results. When :expand_results is set to true ruby-tmdb automatically makes extra API calls to fetch the full information for each item. This can result in *very* slow requests though. If you only need basic information for a search listing then set this to false. Defaults to 'true'
+:id => specifies a individual movie via it's TMDb id
+:title => specifies a query string to look for in the movie titles
+:imdb => specifies an idividual movie via it's IMDB id
+:limit => specifies the maximum number of results to be returned
+:expand_results => The TMDb API by default returns only partial info for any API method that can return multiple results. When :expand_results is set to true ruby-tmdb automatically makes extra API calls to fetch the full information for each item. This can result in *very* slow requests though. If you only need basic information for a search listing then set this to false. Defaults to 'true'
   
 
   Tmdbcast.find :id => 123, :name => "Brad", :limit => 1, :expand_results => true)
   
-  :id => specifies an idividual cast member via their TMDb id
-  :name => specifies a query string to look for in the cast names
-  :limit => see TmdbMovie
-  :expand_results => see TmdbMovie
+:id => specifies an idividual cast member via their TMDb id
+:name => specifies a query string to look for in the cast names
+:limit => see TmdbMovie
+:expand_results => see TmdbMovie
   
 To find out more about the information each object offers on retreived items have a look at the {TMDb API Docs} [http://api.themoviedb.org/2.1]. For the most accurate information about the information available have a look at the data directly through ruby-tmdb by calling @item.raw_data.inspect
 
