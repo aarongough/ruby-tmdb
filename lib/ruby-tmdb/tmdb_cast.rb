@@ -32,7 +32,9 @@ class TmdbCast
   end
   
   def self.new(raw_data, expand_results = false)
-    raw_data = Tmdb.api_call('Person.getInfo', raw_data["id"]).first
+    # expand the result by calling Person.getInfo unless :expand_results is set to false or the data is already complete
+    # (as determined by checking for the 'known_movies' property)
+    raw_data = Tmdb.api_call('Person.getInfo', raw_data["id"]).first if(expand_results && !raw_data.has_key?("known_movies"))
     return Tmdb.data_to_object(raw_data)
   end
   
