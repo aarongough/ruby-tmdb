@@ -22,10 +22,10 @@ def register_api_url_stubs
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "incorrect_api_url.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "Movie.blarg/" + ".*")).to_return(file)
-      
-      File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "blank_result.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "Search.empty/" + ".*")).to_return(file)
     end
+      
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "blank_result.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "Search.empty/" + ".*")).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "example_com.txt")) do |file|
