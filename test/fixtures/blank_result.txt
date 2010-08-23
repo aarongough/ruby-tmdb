@@ -1,16 +1,15 @@
 HTTP/1.1 200 OK
 Server: nginx
-Date: Wed, 21 Jul 2010 19:39:08 GMT
-Content-Type: text/x-yaml; charset=utf-8
+Date: Mon, 23 Aug 2010 16:46:40 GMT
+Content-Type: text/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
 Keep-Alive: timeout=20
 Status: 200 OK
-Cache-Control: public, max-age=43200
-X-Varnish: 2146446054 2146440076
-Age: 28
+Cache-Control: public, max-age=21600
+X-Varnish: 2542133049
+Age: 0
 Via: 1.1 varnish
-X-Cache: HIT
+X-Cache: MISS
 
---- 
-- Nothing found.
+["Nothing found."]
