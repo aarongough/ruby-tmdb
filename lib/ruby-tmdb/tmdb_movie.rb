@@ -20,6 +20,7 @@ class TmdbMovie
     end
     
     results.flatten!
+    results.compact!
     
     unless(options[:limit].nil?)
       raise ArgumentError, ":limit must be an integer greater than 0" unless(options[:limit].is_a?(Fixnum) && options[:limit] > 0)

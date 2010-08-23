@@ -6,6 +6,11 @@ class TmdbCastTest < Test::Unit::TestCase
     register_api_url_stubs
   end
   
+  test "search that returns no results should create empty array" do
+    movie = TmdbCast.find(:name => "item_not_found")
+    assert_equal [], movie
+  end
+  
   test "cast data should be able to be dumped and re-loaded" do
     assert_nothing_raised do
       cast = TmdbCast.find(:id => 287)

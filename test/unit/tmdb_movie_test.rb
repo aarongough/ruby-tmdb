@@ -6,6 +6,11 @@ class TmdbMovieTest < Test::Unit::TestCase
     register_api_url_stubs
   end
   
+  test "search that returns no results should create empty array" do
+    movie = TmdbMovie.find(:title => "item_not_found")
+    assert_equal [], movie
+  end
+  
   test "movie should be able to be dumped and re-loaded" do
     assert_nothing_raised do
       movie = TmdbMovie.find(:id => 187)
