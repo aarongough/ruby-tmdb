@@ -92,6 +92,15 @@ class TmdbMovieTest < Test::Unit::TestCase
     end
   end
 
+  test "browse should return results" do
+    movies = TmdbMovie.browse(:params => {:order_by => "rating", :order => "desc", :genres => 18, :min_votes => 5, :page => 1, :per_page => 10})
+    assert_kind_of Array, movies
+    assert_equal 10, movies.length
+    movies.each do |movie|
+      assert_kind_of OpenStruct, movie
+    end
+  end
+
   private
     
     def assert_movie_methodized(movie, movie_id)
