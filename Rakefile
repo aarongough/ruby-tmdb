@@ -19,6 +19,7 @@ begin
     gemspec.add_dependency( "deepopenstruct", ">= 0.1.2")
     gemspec.add_dependency( "json")
     gemspec.add_development_dependency "webmock"
+    gemspec.add_development_dependency "addressable"
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler"
