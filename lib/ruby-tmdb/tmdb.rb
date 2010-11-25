@@ -26,13 +26,16 @@ class Tmdb
     raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
     if data.class == Hash
       # Addressable can only handle hashes whose values respond to to_str, so lets be nice and convert things.
+      query_values = {}
       data.each do |key,value|
         if not value.respond_to?(:to_str) and value.respond_to?(:to_s)
-          data[key] = value.to_s
+          query_values[key] = value.to_s
+        else
+          query_values[key] = value
         end
       end
       uri = Addressable::URI.new
-      uri.query_values = data
+      uri.query_values = query_values
       params = '?' + uri.query
     elsif not data.nil?
       params = '/' + CGI::escape(data.to_s)
