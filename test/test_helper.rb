@@ -1,6 +1,7 @@
 TEST_LIVE_API = false
 
 require 'rubygems'
+require 'mocha'
 require 'test/unit'
 
 unless(TEST_LIVE_API)

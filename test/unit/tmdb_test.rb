@@ -99,14 +99,14 @@ class TmdbTest < Test::Unit::TestCase
   
   test "failed API call should return nil" do
     movies = Tmdb.api_call('Movie.blarg', 'Transformers')
-    assert_kind_of NilClass, movies
-    assert_nil movies
+    assert_kind_of Array, movies
+    assert_empty movies
   end
   
   test "API call that finds no results should return nil" do
     movies = Tmdb.api_call('Search.empty', 'Transformers')
-    assert_kind_of NilClass, movies
-    assert_nil movies
+    assert_kind_of Array, movies
+    assert_empty movies
   end
   
   test "API call cache should not be changed when data altered in the receiving method" do
