@@ -14,6 +14,9 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org (TMDb)}[http:
   # setup your API key
   Tmdb.api_key = "t478f8de5776c799de5a"
   
+  # setup your default language
+  Tmdb.default_language = "en"
+  
   @movie = TmdbMovie.find(:title => "Iron Man", :limit => 1)
   # => <OpenStruct>
   
@@ -37,7 +40,7 @@ These objects provide access to movie and cast listing respectively.
 
 Each object provides a find() method which accepts a number of options:
 
-  TmdbMovie.find(:id => 123, :title => "fight club", :imdb => 'tt0401792', :limit => 10, :expand_results => true)
+  TmdbMovie.find(:id => 123, :title => "fight club", :imdb => 'tt0401792', :limit => 10, :expand_results => true, :language => "en")
 
 
 [:id]              specifies an individual movie via it's TMDb id
@@ -45,14 +48,20 @@ Each object provides a find() method which accepts a number of options:
 [:imdb]            specifies an individual movie via it's IMDB id
 [:limit]           specifies the maximum number of results to be returned
 [:expand_results]  The TMDb API by default returns only partial info for any API method that can return multiple results. When :expand_results is set to true ruby-tmdb automatically makes extra API calls to fetch the full information for each item. This can result in *very* slow requests though. If you only need basic information for a search listing then set this to false. Defaults to 'true'.
+[:language]        Allows you to override the default API language on a per-query basis.
+
+You must supply at least one of :id, :title, or :imdb. All other parameters are optional.
   
 
-  TmdbCast.find( :id => 123, :name => "Brad", :limit => 1, :expand_results => true)
+  TmdbCast.find( :id => 123, :name => "Brad", :limit => 1, :expand_results => true, :language => "fr")
   
 [:id]              specifies an individual cast member via their TMDb id
 [:name]            specifies a query string to look for in the cast names
 [:limit]           see TmdbMovie
 [:expand_results]  see TmdbMovie
+[:language]        see TmdbMovie
+
+You must supply at least one of :id or :name. All other parameters are optional.
 
 
 === Usage Examples
@@ -80,6 +89,10 @@ Find all cast members whose names match a given string:
 Find an individual cast member via their TMDb ID:
 
   @actor = TmdbCast.find(:id => 101)
+  
+Get the info for a movie in French:
+
+  @movie = TmdbMovie.find(:title => 'Sin City', :limit => 1, :language => "fr")
 
 
 === Item information

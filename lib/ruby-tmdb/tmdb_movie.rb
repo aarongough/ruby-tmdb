@@ -9,14 +9,14 @@ class TmdbMovie
     
     results = []
     unless(options[:id].nil? || options[:id].to_s.empty?)
-      results << Tmdb.api_call("Movie.getInfo", options[:id])
+      results << Tmdb.api_call("Movie.getInfo", options[:id], options[:language])
     end
     unless(options[:imdb].nil? || options[:imdb].to_s.empty?)
-      results << Tmdb.api_call("Movie.imdbLookup", options[:imdb])
+      results << Tmdb.api_call("Movie.imdbLookup", options[:imdb], options[:language])
       options[:expand_results] = true
     end
     unless(options[:title].nil? || options[:title].to_s.empty?)
-      results << Tmdb.api_call("Movie.search", options[:title])
+      results << Tmdb.api_call("Movie.search", options[:title], options[:language])
     end
     
     results.flatten!

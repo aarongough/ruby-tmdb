@@ -7,6 +7,7 @@ class Tmdb
   require 'deepopenstruct'
   
   @@api_key = ""
+  @@default_language = "en"
   @@api_response = {}
   
   def self.api_key
@@ -17,12 +18,22 @@ class Tmdb
     @@api_key = key
   end
   
+  def self.default_language
+    @@default_language
+  end
+  
+  def self.default_language=(language)
+    @@default_language = language
+  end
+  
   def self.base_api_url
     "http://api.themoviedb.org/2.1/"
   end
   
-  def self.api_call(method, data, language = "en")
+  def self.api_call(method, data, language = nil)
     raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
+    
+    language = language || @@default_language
     url = Tmdb.base_api_url + method + '/' + language + '/json/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
     response = Tmdb.get_url(url)
     if(response.code.to_i != 200)

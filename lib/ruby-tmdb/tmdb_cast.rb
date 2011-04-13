@@ -9,10 +9,10 @@ class TmdbCast
     
     results = []
     unless(options[:id].nil? || options[:id].to_s.empty?)
-      results << Tmdb.api_call('Person.getInfo', options[:id])
+      results << Tmdb.api_call('Person.getInfo', options[:id], options[:language])
     end
     unless(options[:name].nil? || options[:name].to_s.empty?)
-      results << Tmdb.api_call('Person.search', options[:name])
+      results << Tmdb.api_call('Person.search', options[:name], options[:language])
     end
     
     results.flatten!
