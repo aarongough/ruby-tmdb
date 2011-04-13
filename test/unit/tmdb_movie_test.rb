@@ -92,6 +92,20 @@ class TmdbMovieTest < Test::Unit::TestCase
     end
   end
   
+  test "should not pass language to Tmdb.api_call if language is not supplied" do
+    Tmdb.expects(:api_call).with("Movie.getInfo", 1, nil).returns([])
+    Tmdb.expects(:api_call).with("Movie.imdbLookup", 1, nil).returns([])
+    Tmdb.expects(:api_call).with("Movie.search", 1, nil).returns([])
+    TmdbMovie.find(:id => 1, :imdb => 1, :title => 1)
+  end
+  
+  test "should pass through language to Tmdb.api_call when language is supplied" do
+    Tmdb.expects(:api_call).with("Movie.getInfo", 1, "foo").returns([])
+    Tmdb.expects(:api_call).with("Movie.imdbLookup", 1, "foo").returns([])
+    Tmdb.expects(:api_call).with("Movie.search", 1, "foo").returns([])
+    TmdbMovie.find(:id => 1, :imdb => 1, :title => 1, :language => "foo")
+  end
+  
   test "TmdbMovie.new should raise error if supplied with raw data for movie that doesn't exist" do
     Tmdb.expects(:api_call).with('Movie.getInfo', "1").returns(nil)
     assert_raise ArgumentError do
