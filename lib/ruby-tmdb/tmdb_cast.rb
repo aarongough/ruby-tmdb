@@ -23,7 +23,7 @@ class TmdbCast
       results = results.slice(0, options[:limit])
     end
   
-    results.map!{|c| TmdbCast.new(c, options[:expand_results]) }
+    results.map!{|c| TmdbCast.new(c, options[:expand_results], options[:language]) }
   
     if(results.length == 1)
       return results[0]
@@ -32,11 +32,11 @@ class TmdbCast
     end
   end
   
-  def self.new(raw_data, expand_results = false)
+  def self.new(raw_data, expand_results = false, language = nil)
     # expand the result by calling Person.getInfo unless :expand_results is set to false or the data is already complete
     # (as determined by checking for the 'known_movies' property)
     if(expand_results && !raw_data.has_key?("known_movies"))
-      expanded_data = Tmdb.api_call('Person.getInfo', raw_data["id"])
+      expanded_data = Tmdb.api_call('Person.getInfo', raw_data["id"], language)
       raise ArgumentError, "Unable to fetch expanded info for Cast ID: '#{raw_data["id"]}'" if expanded_data.nil?
       raw_data = expanded_data.first
     end

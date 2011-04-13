@@ -27,7 +27,7 @@ class TmdbMovie
       results = results.slice(0, options[:limit])
     end
     
-    results.map!{|m| TmdbMovie.new(m, options[:expand_results]) }
+    results.map!{|m| TmdbMovie.new(m, options[:expand_results], options[:language]) }
     
     if(results.length == 1)
       return results[0]
@@ -50,7 +50,7 @@ class TmdbMovie
     results.flatten!
     results.compact!
     
-    results.map!{|m| TmdbMovie.new(m, expand_results) }
+    results.map!{|m| TmdbMovie.new(m, expand_results, language) }
     
     if(results.length == 1)
       return results[0]
@@ -60,11 +60,11 @@ class TmdbMovie
     
   end
   
-  def self.new(raw_data, expand_results = false)
+  def self.new(raw_data, expand_results = false, language = nil)
     # expand the result by calling Movie.getInfo unless :expand_results is false or the data is already complete
     # (as determined by checking for the trailer property in the raw data)
     if(expand_results && !raw_data.has_key?("trailer"))
-      expanded_data = Tmdb.api_call('Movie.getInfo', raw_data["id"])
+      expanded_data = Tmdb.api_call('Movie.getInfo', raw_data["id"], language)
       raise ArgumentError, "Unable to fetch expanded info for Movie ID: '#{raw_data["id"]}'" if expanded_data.nil?
       raw_data = expanded_data.first
     end
