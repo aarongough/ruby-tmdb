@@ -41,6 +41,8 @@ class TmdbMovie
       :expand_results => false
     }.merge(options)
     
+    
+    
     results = []
     results << Tmdb.api_call("Movie.browse", options[:params])
     
