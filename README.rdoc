@@ -1,12 +1,8 @@
 = ruby-tmdb
 
-ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org (TMDb)}[http://www.themoviedb.org/]. ruby-tmdb is designed to make common tasks much easier than they would be if dealing directly with the URL based API.
-
-=== Installation
-
-  gem install ruby-tmdb
+ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org (TMDb)}[http://www.themoviedb.org/]. ruby-tmdb is designed to streamline common tasks associated with finding information about movies and cast members.
   
-=== Example
+=== Examples
 
   require 'rubygems'
   require 'ruby-tmdb'
@@ -29,45 +25,58 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org (TMDb)}[http:
   @movie.posters.first.data
   # => [binary blob representing JPEG]
   
+=== Installation
+
+For ease of use ruby-tmdb is packaged as a Rubygem. Installing it is as simple as:
+
+  gem install ruby-tmdb
+  
 === Usage
 
-ruby-tmdb provides 2 main objects that you will use to query the API
+There are 3 main methods you can use to get information about movies and cast members:
+
+==== TmdbMovie.find([:id, :imdb, :title, :limit, :expand_results, :language])
+
+Find information about an individual movie, or a set of movies that share a similar title, eg:
+
+  TmdbMovie.find(:title => "fight club", :limit => 10, :expand_results => true, :language => "en")
   
-  TmdbMovie
-  TmdbCast
-  
-These objects provide access to movie and cast listing respectively.
+Parameters:
 
-Each object provides a find() method which accepts a number of options:
-
-  TmdbMovie.find(:id => 123, :title => "fight club", :imdb => 'tt0401792', :limit => 10, :expand_results => true, :language => "en")
-
-
-[:id]              specifies an individual movie via it's TMDb id
-[:title]           specifies a query string to look for in the movie titles
-[:imdb]            specifies an individual movie via it's IMDB id
-[:limit]           specifies the maximum number of results to be returned
+[:id]              Specifies an individual movie via it's TMDb id
+[:title]           Specifies a query string to look for in the movie titles
+[:imdb]            Specifies an individual movie via it's IMDB id
+[:limit]           Specifies the maximum number of results to be returned
 [:expand_results]  The TMDb API by default returns only partial info for any API method that can return multiple results. When :expand_results is set to true ruby-tmdb automatically makes extra API calls to fetch the full information for each item. This can result in *very* slow requests though. If you only need basic information for a search listing then set this to false. Defaults to 'true'.
 [:language]        Allows you to override the default API language on a per-query basis.
 
 You must supply at least one of :id, :title, or :imdb. All other parameters are optional.
+
+==== TmdbMovie.browse([query_options],[:language, :expand_results])
+
+Find information about a set of movies grouped by one or more defined criteria, eg:
   
+  TmdbMovie.browse(:order_by => "rating", :order => "desc", :genres => 18, :min_votes => 5, :page => 1, :per_page => 10, :language => "en", :expand_results => true)
+  
+Parameters:
+
+[query_options]    These are defined by the TMDB.org API, for more info on which options are available please have a look at the {'browse' API documentation}[http://api.themoviedb.org/2.1/methods/Movie.browse]
+[:expand_results]  See TmdbMovie
+[:language]        See TmdbMovie
+  
+==== TmdbCast.find
+
+Find information about an individual cast member, or a set of cast members sharing similar names, eg:
 
   TmdbCast.find( :id => 123, :name => "Brad", :limit => 1, :expand_results => true, :language => "fr")
   
-[:id]              specifies an individual cast member via their TMDb id
-[:name]            specifies a query string to look for in the cast names
-[:limit]           see TmdbMovie
-[:expand_results]  see TmdbMovie
-[:language]        see TmdbMovie
+[:id]              Specifies an individual cast member via their TMDb id
+[:name]            Specifies a query string to look for in the cast names
+[:limit]           See TmdbMovie
+[:expand_results]  See TmdbMovie
+[:language]        See TmdbMovie
 
 You must supply at least one of :id or :name. All other parameters are optional.
-
-The TmdbMovie object also defines a 'browse' method that allows you to select sets of movies according to their genre and other criteria, for example:
-
-  TmdbMovie.browse(:order_by => "rating", :order => "desc", :genres => 18, :min_votes => 5, :page => 1, :per_page => 10, :language => "en", :expand_results => true)
-  
-The 'language' and 'expand_results' options are supplied by ruby-tmdb, but the rest of the options are dictated by the TMDB.org API. For more info have a look at the {'browse' API documentation}[http://api.themoviedb.org/2.1/methods/Movie.browse]
 
 
 === Usage Examples
