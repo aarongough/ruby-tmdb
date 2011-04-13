@@ -1,1 +1,2 @@
 *.gem
+test/setup/tmdb_api_key.txt

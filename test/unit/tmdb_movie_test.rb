@@ -91,6 +91,46 @@ class TmdbMovieTest < Test::Unit::TestCase
       end
     end
   end
+  
+  test "find should not pass language to Tmdb.api_call if language is not supplied" do
+    Tmdb.expects(:api_call).with("Movie.getInfo", 1, nil).returns([])
+    Tmdb.expects(:api_call).with("Movie.imdbLookup", 1, nil).returns([])
+    Tmdb.expects(:api_call).with("Movie.search", 1, nil).returns([])
+    TmdbMovie.find(:id => 1, :imdb => 1, :title => 1)
+  end
+  
+  test "find should pass through language to Tmdb.api_call when language is supplied" do
+    Tmdb.expects(:api_call).with("Movie.getInfo", 1, "foo").returns([])
+    Tmdb.expects(:api_call).with("Movie.imdbLookup", 1, "foo").returns([])
+    Tmdb.expects(:api_call).with("Movie.search", 1, "foo").returns([])
+    TmdbMovie.find(:id => 1, :imdb => 1, :title => 1, :language => "foo")
+  end
+  
+  test "TmdbMovie.new should raise error if supplied with raw data for movie that doesn't exist" do
+    Tmdb.expects(:api_call).with('Movie.getInfo', "1").returns(nil)
+    assert_raise ArgumentError do
+      TmdbMovie.new({"id" => "1"}, true)
+    end
+  end
+
+  test "browse should return results" do
+    movies = TmdbMovie.browse(:order_by => "rating", :order => "desc", :genres => 18, :min_votes => 5, :page => 1, :per_page => 10)
+    assert_kind_of Array, movies
+    assert_equal 10, movies.length
+    movies.each do |movie|
+      assert_kind_of OpenStruct, movie
+    end
+  end
+  
+  test "browse should not pass language to Tmdb.api_call if language is not supplied" do
+    Tmdb.expects(:api_call).with("Movie.browse", {:option => 1}, nil).returns([])
+    TmdbMovie.browse(:option => 1)
+  end
+  
+  test "browse should pass through language to Tmdb.api_call when language is supplied" do
+    Tmdb.expects(:api_call).with("Movie.browse", {:option => 1}, "foo").returns([])
+    TmdbMovie.browse(:option => 1, :language => "foo")
+  end
 
   private
     

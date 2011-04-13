@@ -5,8 +5,10 @@ class Tmdb
   require 'cgi'
   require 'json'
   require 'deepopenstruct'
+  require "addressable/uri"
   
   @@api_key = ""
+  @@default_language = "en"
   @@api_response = {}
   
   def self.api_key
@@ -17,16 +19,44 @@ class Tmdb
     @@api_key = key
   end
   
+  def self.default_language
+    @@default_language
+  end
+  
+  def self.default_language=(language)
+    @@default_language = language
+  end
+  
   def self.base_api_url
     "http://api.themoviedb.org/2.1/"
   end
   
-  def self.api_call(method, data, language = "en")
+  def self.api_call(method, data = nil, language = nil)
     raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
-    url = Tmdb.base_api_url + method + '/' + language + '/json/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
+    
+    language = language || @@default_language
+    if data.class == Hash
+      # Addressable can only handle hashes whose values respond to to_str, so lets be nice and convert things.
+      query_values = {}
+      data.each do |key,value|
+        if not value.respond_to?(:to_str) and value.respond_to?(:to_s)
+          query_values[key] = value.to_s
+        else
+          query_values[key] = value
+        end
+      end
+      uri = Addressable::URI.new
+      uri.query_values = query_values
+      params = '?' + uri.query
+    elsif not data.nil?
+      params = '/' + CGI::escape(data.to_s)
+    else
+      params = ''  
+    end
+    url = Tmdb.base_api_url + method + '/' + language + '/json/' + Tmdb.api_key + params 
     response = Tmdb.get_url(url)
     if(response.code.to_i != 200)
-      return nil
+      raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"
     end
     body = JSON(response.body)
     if( body.first.include?("Nothing found"))

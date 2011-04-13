@@ -6,12 +6,24 @@ class TmdbTest < Test::Unit::TestCase
     register_api_url_stubs
   end
 
-  test "allows setting of api_key" do
+  test "should allow setting and getting of api_key" do
     old_api_key = Tmdb.api_key
     api_key = "test1234567890"
     Tmdb.api_key = api_key
     assert_equal Tmdb.api_key, api_key
     Tmdb.api_key = old_api_key
+  end
+  
+  test "language should default to 'en'" do
+    assert_equal "en", Tmdb.default_language
+  end
+  
+  test "should allow setting and getting of language" do
+    old_language = Tmdb.default_language
+    new_language = "blah"
+    Tmdb.default_language = new_language
+    assert_equal new_language, Tmdb.default_language
+    Tmdb.default_language = old_language
   end
   
   test "should return base API url" do
@@ -26,6 +38,27 @@ class TmdbTest < Test::Unit::TestCase
   test "getting nonexistent URL returns response object" do
     test_response = Tmdb.get_url('http://thisisaurlthatdoesntexist.co.nz')
     assert_equal 404, test_response.code.to_i
+  end
+  
+  test "API call without explicit language setting should use default language" do
+    method = "Movie.getInfo"
+    data = "hello"
+    Tmdb.default_language = "es"
+    url = Tmdb.base_api_url + method + '/' + Tmdb.default_language + '/json/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
+    mock_response = stub(:code => "200", :body => '[""]')
+    Tmdb.expects(:get_url).with(url).returns(mock_response)
+    Tmdb.api_call(method, data)
+    Tmdb.default_language = "en"
+  end
+  
+  test "API call with explicit language setting should override default language" do
+    method = "Movie.getInfo"
+    data = "hello"
+    language = "blah"
+    url = Tmdb.base_api_url + method + '/' + language + '/json/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
+    mock_response = stub(:code => "200", :body => '[""]')
+    Tmdb.expects(:get_url).with(url).returns(mock_response)
+    Tmdb.api_call(method, data, language)
   end
   
   test "api_call should raise exception if api_key is not set" do
@@ -97,15 +130,14 @@ class TmdbTest < Test::Unit::TestCase
     end
   end
   
-  test "failed API call should return nil" do
-    movies = Tmdb.api_call('Movie.blarg', 'Transformers')
-    assert_kind_of NilClass, movies
-    assert_nil movies
+  test "API call that returns 404 should raise exception" do
+    assert_raise RuntimeError do
+      movies = Tmdb.api_call('Movie.blarg', 'Transformers')
+    end
   end
   
   test "API call that finds no results should return nil" do
     movies = Tmdb.api_call('Search.empty', 'Transformers')
-    assert_kind_of NilClass, movies
     assert_nil movies
   end
   
