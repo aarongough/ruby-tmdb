@@ -35,7 +35,11 @@ class TmdbCast
   def self.new(raw_data, expand_results = false)
     # expand the result by calling Person.getInfo unless :expand_results is set to false or the data is already complete
     # (as determined by checking for the 'known_movies' property)
-    raw_data = Tmdb.api_call('Person.getInfo', raw_data["id"]).first if(expand_results && !raw_data.has_key?("known_movies"))
+    if(expand_results && !raw_data.has_key?("known_movies"))
+      expanded_data = Tmdb.api_call('Person.getInfo', raw_data["id"])
+      raise ArgumentError, "Unable to fetch expanded info for Cast ID: '#{raw_data["id"]}'" if expanded_data.nil?
+      raw_data = expanded_data.first
+    end
     return Tmdb.data_to_object(raw_data)
   end
   

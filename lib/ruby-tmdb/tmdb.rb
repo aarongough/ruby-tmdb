@@ -26,11 +26,11 @@ class Tmdb
     url = Tmdb.base_api_url + method + '/' + language + '/json/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
     response = Tmdb.get_url(url)
     if(response.code.to_i != 200)
-      return []
+      raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"
     end
     body = JSON(response.body)
     if( body.first.include?("Nothing found"))
-      return []
+      return nil
     else
       return body
     end
