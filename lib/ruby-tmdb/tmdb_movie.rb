@@ -41,15 +41,16 @@ class TmdbMovie
       :expand_results => false
     }.merge(options)
     
-    
+    expand_results = options.delete(:expand_results)
+    language = options.delete(:language)
     
     results = []
-    results << Tmdb.api_call("Movie.browse", options[:params])
+    results << Tmdb.api_call("Movie.browse", options, language)
     
     results.flatten!
     results.compact!
     
-    results.map!{|m| TmdbMovie.new(m, options[:expand_results]) }
+    results.map!{|m| TmdbMovie.new(m, expand_results) }
     
     if(results.length == 1)
       return results[0]

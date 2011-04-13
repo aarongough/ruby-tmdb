@@ -63,6 +63,12 @@ You must supply at least one of :id, :title, or :imdb. All other parameters are 
 
 You must supply at least one of :id or :name. All other parameters are optional.
 
+The TmdbMovie object also defines a 'browse' method that allows you to select sets of movies according to their genre and other criteria, for example:
+
+  TmdbMovie.browse(:order_by => "rating", :order => "desc", :genres => 18, :min_votes => 5, :page => 1, :per_page => 10, :language => "en", :expand_results => true)
+  
+The 'language' and 'expand_results' options are supplied by ruby-tmdb, but the rest of the options are dictated by the TMDB.org API. For more info have a look at the {'browse' API documentation}[http://api.themoviedb.org/2.1/methods/Movie.browse]
+
 
 === Usage Examples
 
