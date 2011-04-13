@@ -31,7 +31,7 @@ class Tmdb
     "http://api.themoviedb.org/2.1/"
   end
   
-  def self.api_call(method, data = nil, language = "en")
+  def self.api_call(method, data = nil, language = nil)
     raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
     
     language = language || @@default_language
