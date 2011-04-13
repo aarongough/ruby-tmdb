@@ -64,7 +64,7 @@ Parameters:
 [:expand_results]  See TmdbMovie
 [:language]        See TmdbMovie
   
-==== TmdbCast.find
+==== TmdbCast.find([:id, :name, :limit, :expand_results, :language])
 
 Find information about an individual cast member, or a set of cast members sharing similar names, eg:
 
