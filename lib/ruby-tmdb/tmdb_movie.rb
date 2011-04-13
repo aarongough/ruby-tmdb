@@ -36,6 +36,27 @@ class TmdbMovie
     end
   end
   
+  def self.browse(options)
+    options = {
+      :expand_results => false
+    }.merge(options)
+    
+    results = []
+    results << Tmdb.api_call("Movie.browse", options[:params])
+    
+    results.flatten!
+    results.compact!
+    
+    results.map!{|m| TmdbMovie.new(m, options[:expand_results]) }
+    
+    if(results.length == 1)
+      return results[0]
+    else
+      return results
+    end
+    
+  end
+  
   def self.new(raw_data, expand_results = false)
     # expand the result by calling Movie.getInfo unless :expand_results is false or the data is already complete
     # (as determined by checking for the trailer property in the raw data)
