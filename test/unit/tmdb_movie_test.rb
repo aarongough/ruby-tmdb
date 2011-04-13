@@ -91,6 +91,13 @@ class TmdbMovieTest < Test::Unit::TestCase
       end
     end
   end
+  
+  test "TmdbMovie.new should raise error if supplied with raw data for movie that doesn't exist" do
+    Tmdb.expects(:api_call).with('Movie.getInfo', "1").returns(nil)
+    assert_raise ArgumentError do
+      TmdbMovie.new({"id" => "1"}, true)
+    end
+  end
 
   private
     

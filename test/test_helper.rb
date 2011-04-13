@@ -2,6 +2,7 @@ TEST_LIVE_API = false
 
 require 'rubygems'
 require 'test/unit'
+require 'mocha'
 
 unless(TEST_LIVE_API)
   require 'webmock/test_unit'
