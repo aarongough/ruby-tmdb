@@ -41,10 +41,10 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "API call without explicit language setting should use default language" do
-    method = "Movie.getInfo"
+    method = "movie"
     data = "hello"
     Tmdb.default_language = "es"
-    url = Tmdb.base_api_url + method + '/' + Tmdb.default_language + '/json/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
+    url = Tmdb.base_api_url + method + "/" + CGI::escape(data.to_s) + '?language=' + Tmdb.default_language + '&api_key=' + Tmdb.api_key
     mock_response = stub(:code => "200", :body => '[""]')
     Tmdb.expects(:get_url).with(url).returns(mock_response)
     Tmdb.api_call(method, data)
@@ -52,10 +52,10 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "API call with explicit language setting should override default language" do
-    method = "Movie.getInfo"
+    method = "movie"
     data = "hello"
     language = "blah"
-    url = Tmdb.base_api_url + method + '/' + language + '/json/' + Tmdb.api_key + '/' + CGI::escape(data.to_s)
+    url = Tmdb.base_api_url + method + "/" + CGI::escape(data.to_s) + "?language=" + language + "&api_key=" + Tmdb.api_key
     mock_response = stub(:code => "200", :body => '[""]')
     Tmdb.expects(:get_url).with(url).returns(mock_response)
     Tmdb.api_call(method, data, language)
