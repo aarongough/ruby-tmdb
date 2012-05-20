@@ -28,7 +28,7 @@ class Tmdb
   end
   
   def self.base_api_url
-    "http://api.themoviedb.org/2.1/"
+    "http://api.themoviedb.org/3/"
   end
   
   def self.api_call(method, data = nil, language = nil)
@@ -53,7 +53,7 @@ class Tmdb
     else
       params = ''  
     end
-    url = Tmdb.base_api_url + method + '/' + language + '/json/' + Tmdb.api_key + params 
+    url = Tmdb.base_api_url + method + params + '?language=' + language + '&api_key=' + Tmdb.api_key
     response = Tmdb.get_url(url)
     if(response.code.to_i != 200)
       raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"

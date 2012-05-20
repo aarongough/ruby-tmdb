@@ -22,9 +22,9 @@ class TmdbCast
       raise ArgumentError, ":limit must be an integer greater than 0" unless(options[:limit].is_a?(Fixnum) && options[:limit] > 0)
       results = results.slice(0, options[:limit])
     end
-  
+    
     results.map!{|c| TmdbCast.new(c, options[:expand_results], options[:language]) }
-  
+    
     if(results.length == 1)
       return results[0]
     else
@@ -36,7 +36,7 @@ class TmdbCast
     # expand the result by calling Person.getInfo unless :expand_results is set to false or the data is already complete
     # (as determined by checking for the 'known_movies' property)
     if(expand_results && !raw_data.has_key?("known_movies"))
-      expanded_data = Tmdb.api_call('Person.getInfo', raw_data["id"], language)
+      expanded_data = Tmdb.api_call("Person.getInfo", raw_data["id"], language)
       raise ArgumentError, "Unable to fetch expanded info for Cast ID: '#{raw_data["id"]}'" if expanded_data.nil?
       raw_data = expanded_data.first
     end

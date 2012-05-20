@@ -27,7 +27,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should return base API url" do
-    assert_equal "http://api.themoviedb.org/2.1/", Tmdb.base_api_url
+    assert_equal "http://api.themoviedb.org/3/", Tmdb.base_api_url
   end
 
   test "get url returns a response object" do
