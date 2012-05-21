@@ -18,7 +18,7 @@ def register_api_url_stubs
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "person_get_info.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "Person.getInfo/" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "person/" + ".*")).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "person_search.txt")) do |file|

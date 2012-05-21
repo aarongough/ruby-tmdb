@@ -1,4 +1,4 @@
-TEST_LIVE_API = false
+TEST_LIVE_API = true
 
 require 'rubygems'
 require 'test/unit'

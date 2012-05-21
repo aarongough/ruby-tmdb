@@ -107,7 +107,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should perform Person.getInfo API call and return array of results" do
-    people = Tmdb.api_call('Person.getInfo', 287)
+    people = Tmdb.api_call("person", 287)
     assert_kind_of Array, people
     assert people.length == 1
     people.each do |person|
@@ -119,7 +119,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should perform Person.search API call and return array of results" do
-    people = Tmdb.api_call('Person.search', "vince")
+    people = Tmdb.api_call("person", "vince")
     assert_kind_of Array, people
     assert people.length > 1
     people.each do |person|
@@ -142,10 +142,10 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "API call cache should not be changed when data altered in the receiving method" do
-    person = Tmdb.api_call('Person.getInfo', 287)[0]
+    person = Tmdb.api_call("person", 287)[0]
     assert_not_nil person[person.keys[0]]
     person[person.keys[0]] = nil
-    person = Tmdb.api_call('Person.getInfo', 287)[0]
+    person = Tmdb.api_call("person", 287)[0]
     assert_not_nil person[person.keys[0]]
   end
   
