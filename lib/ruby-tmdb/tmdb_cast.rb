@@ -16,6 +16,8 @@ class TmdbCast
     end
     
     results.flatten!
+    results.uniq!
+    results.delete_if &:nil?
     
     unless(options[:limit].nil?)
       raise ArgumentError, ":limit must be an integer greater than 0" unless(options[:limit].is_a?(Fixnum) && options[:limit] > 0)
