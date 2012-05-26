@@ -64,8 +64,8 @@ class TmdbMovie
   
   def self.new(raw_data, expand_results = false, language = nil)
     # expand the result by calling movie unless :expand_results is false or the data is already complete
-    # (as determined by checking for the trailer property in the raw data)
-    if(expand_results && !raw_data.has_key?("trailer"))
+    # (as determined by checking for the runtime property in the raw data)
+    if(expand_results && !raw_data.has_key?("runtime"))
       begin
         expanded_data = Tmdb.api_call("movie", {id: raw_data["id"]}, language)
       rescue RuntimeError => e
