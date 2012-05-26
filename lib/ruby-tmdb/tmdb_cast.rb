@@ -37,8 +37,11 @@ class TmdbCast
     # expand the result by calling Person.getInfo unless :expand_results is set to false or the data is already complete
     # (as determined by checking for the 'birthday' property)
     if(expand_results && !raw_data.has_key?("birthday"))
-      expanded_data = Tmdb.api_call("person", {id: raw_data["id"]}, language)
-      raise ArgumentError, "Unable to fetch expanded info for Cast ID: '#{raw_data["id"]}'" if expanded_data.nil?
+      begin
+        expanded_data = Tmdb.api_call("person", {id: raw_data["id"]}, language)
+      rescue RuntimeError => e
+        raise ArgumentError, "Unable to fetch expanded info for Cast ID: '#{raw_data["id"]}'" if expanded_data.nil?
+      end
       raw_data = expanded_data
     end
     return Tmdb.data_to_object(raw_data)

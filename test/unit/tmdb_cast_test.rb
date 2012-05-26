@@ -5,7 +5,7 @@ class TmdbCastTest < Test::Unit::TestCase
   def setup
     register_api_url_stubs
   end
-  
+
   test "search that returns no results should create empty array" do
     movie = TmdbCast.find(:name => "item_not_found")
     assert_equal [], movie
@@ -90,20 +90,20 @@ class TmdbCastTest < Test::Unit::TestCase
     Tmdb.expects(:api_call).with("search/person", {id: 1}, nil).returns([])
     TmdbCast.find(:id => 1, :name => 1)
   end
-  
+
   test "should pass through language to Tmdb.api_call when language is supplied" do
     Tmdb.expects(:api_call).with("person", {id: 1}, "foo").returns([])
     Tmdb.expects(:api_call).with("search/person", {id: 1}, "foo").returns([])
     TmdbCast.find(:id => 1, :name => 1, :language => "foo")
   end
-
+=end
   test "TmdbCast.new should raise error if supplied with raw data for cast member that doesn't exist" do
-    Tmdb.expects(:api_call).with("person", "1").returns(nil)
+    Tmdb.expects(:api_call).with("person", {id: "999999999999"}, nil).returns(nil)
     assert_raise ArgumentError do
-      TmdbCast.new({"id" => "1"}, true)
+      TmdbCast.new({"id" => "999999999999"}, true)
     end
   end
-=end
+
   private
   
     def assert_cast_methodized(actor, cast_id)
