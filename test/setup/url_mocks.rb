@@ -6,7 +6,7 @@ def register_api_url_stubs
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_get_info.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "Movie.getInfo/" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "movie/" + ".*")).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_imdb_lookup.txt")) do |file|

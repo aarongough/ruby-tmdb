@@ -82,8 +82,8 @@ class TmdbTest < Test::Unit::TestCase
     end
   end
   
-  test "should perform Movie.getInfo API call and return array of results" do
-    movies = Tmdb.api_call('Movie.getInfo', 187)
+  test "should perform movie API call and return array of results" do
+    movies = Tmdb.api_call("movie", 187)
     assert_kind_of Array, movies
     assert movies.length == 1
     movies.each do |movie|

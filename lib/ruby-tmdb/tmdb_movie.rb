@@ -9,7 +9,8 @@ class TmdbMovie
     
     results = []
     unless(options[:id].nil? || options[:id].to_s.empty?)
-      results << Tmdb.api_call("Movie.getInfo", options[:id], options[:language])
+      #results << Tmdb.api_call("Movie.getInfo", options[:id], options[:language])
+      results << Tmdb.api_call("movie", {id: options[:id]}, options[:language])
     end
     unless(options[:title].nil? || options[:title].to_s.empty?)
       results << Tmdb.api_call("Movie.search", options[:title], options[:language])
@@ -20,17 +21,18 @@ class TmdbMovie
     end
     
     results.flatten!
-    results.compact!
+    results.uniq!
+    results.delete_if &:nil?
     
     unless(options[:limit].nil?)
       raise ArgumentError, ":limit must be an integer greater than 0" unless(options[:limit].is_a?(Fixnum) && options[:limit] > 0)
       results = results.slice(0, options[:limit])
     end
     
-    results.map!{|m| TmdbMovie.new(m, options[:expand_results], options[:language]) }
+    results.map!{|m| TmdbMovie.new(m, options[:expand_results], options[:language])}
     
     if(results.length == 1)
-      return results[0]
+      return results.first
     else
       return results
     end
@@ -61,12 +63,15 @@ class TmdbMovie
   end
   
   def self.new(raw_data, expand_results = false, language = nil)
-    # expand the result by calling Movie.getInfo unless :expand_results is false or the data is already complete
+    # expand the result by calling movie unless :expand_results is false or the data is already complete
     # (as determined by checking for the trailer property in the raw data)
     if(expand_results && !raw_data.has_key?("trailer"))
-      expanded_data = Tmdb.api_call("Movie.getInfo", raw_data["id"], language)
-      raise ArgumentError, "Unable to fetch expanded info for Movie ID: '#{raw_data["id"]}'" if expanded_data.nil?
-      raw_data = expanded_data.first
+      begin
+        expanded_data = Tmdb.api_call("movie", {id: raw_data["id"]}, language)
+      rescue RuntimeError => e
+        raise ArgumentError, "Unable to fetch expanded info for Movie ID: '#{raw_data["id"]}'" if expanded_data.nil?
+      end
+      raw_data = expanded_data
     end
     return Tmdb.data_to_object(raw_data)
   end
