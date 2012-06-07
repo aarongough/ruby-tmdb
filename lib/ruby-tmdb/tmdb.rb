@@ -70,17 +70,13 @@ class Tmdb
 
       url = Tmdb.base_api_url + method + "?" + uri.query
     end
-
+    
     response = Tmdb.get_url(url)
     if(response.code.to_i != 200)
       raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"
     end
-    body = JSON(response.body)
-    if( body.first.include?("Nothing found"))
-      return nil
-    else
-      return body
-    end
+    
+    return JSON(response.body)
   end
 
   # Get a URL and return a response object, follow upto 'limit' re-directs on the way

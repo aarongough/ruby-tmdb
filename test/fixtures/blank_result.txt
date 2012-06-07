@@ -12,4 +12,4 @@ Age: 0
 Via: 1.1 varnish
 X-Cache: MISS
 
-["Nothing found."]
+{"page":1,"results":[],"total_pages":0,"total_results":0}
