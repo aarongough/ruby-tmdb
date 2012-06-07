@@ -12,7 +12,8 @@ class TmdbCast
       results << Tmdb.api_call("person", {id: options[:id]}, options[:language])
     end
     unless(options[:name].nil? || options[:name].to_s.empty?)
-      results << Tmdb.api_call('search/person', {query: options[:name]}, options[:language])["results"]
+      api_return = Tmdb.api_call('search/person', {query: options[:name]}, options[:language])
+      results << api_return["results"] if api_return
     end
     
     results.flatten!

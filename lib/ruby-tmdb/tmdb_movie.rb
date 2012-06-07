@@ -13,7 +13,7 @@ class TmdbMovie
       results << Tmdb.api_call("movie", {id: options[:id]}, options[:language])
     end
     unless(options[:title].nil? || options[:title].to_s.empty?)
-      results << Tmdb.api_call("Movie.search", options[:title], options[:language])
+      results << Tmdb.api_call("search/movie", {query: options[:title]}, options[:language])
     end
     unless(options[:imdb].nil? || options[:imdb].to_s.empty?)
       results << Tmdb.api_call("Movie.imdbLookup", options[:imdb], options[:language])

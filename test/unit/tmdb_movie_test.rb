@@ -35,7 +35,7 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
   
   test "find by title should return the full movie data when expand_results set to true" do
-    movie = TmdbMovie.find(:title => "Transformers: Revenge of the Fallen", :limit => 1, :expand_results => true)
+    movie = TmdbMovie.find(:title => "Iron Man", :limit => 1, :expand_results => true)
     assert_movie_methodized(movie, 187)
   end
   

@@ -31,11 +31,9 @@ class Tmdb
     "http://api.themoviedb.org/3/"
   end
   
-  def self.api_call(method, data, language = nil)
+  def self.api_call(method, data, language = @@default_language)
     raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
     raise ArgumentError, "Invalid data." if(data.nil? || (data.class != Hash))
-    
-    language ||= @@default_language
 
     data = {
       api_key:  Tmdb.api_key,
@@ -75,8 +73,13 @@ class Tmdb
     if(response.code.to_i != 200)
       raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"
     end
-    
-    return JSON(response.body)
+
+    body = JSON(response.body)
+    if body.has_key?("results") && body["results"].empty?
+      return nil
+    else
+      return body
+    end
   end
 
   # Get a URL and return a response object, follow upto 'limit' re-directs on the way
