@@ -13,10 +13,6 @@ def register_api_url_stubs
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "movie/tt" + ".*")).to_return(file)
     end
     
-    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_browse.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "Movie.browse/" + ".*")).to_return(file)
-    end
-    
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "person_get_info.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "person/" + ".*")).to_return(file)
     end
@@ -28,11 +24,7 @@ def register_api_url_stubs
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "incorrect_api_url.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "Movie.blarg/" + ".*")).to_return(file)
     end
-=begin      
-    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "blank_result.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "Search.empty/" + ".*")).to_return(file)
-    end
-=end
+
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "example_com.txt")) do |file|
       stub_request(:get, Regexp.new("http://example.com.*")).to_return(file)
     end

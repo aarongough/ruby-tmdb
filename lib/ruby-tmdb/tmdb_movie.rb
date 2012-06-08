@@ -38,30 +38,6 @@ class TmdbMovie
     end
   end
   
-  def self.browse(options)
-    options = {
-      :expand_results => false
-    }.merge(options)
-    
-    expand_results = options.delete(:expand_results)
-    language = options.delete(:language)
-    
-    results = []
-    results << Tmdb.api_call("Movie.browse", options, language)
-    
-    results.flatten!
-    results.compact!
-    
-    results.map!{|m| TmdbMovie.new(m, expand_results, language) }
-    
-    if(results.length == 1)
-      return results[0]
-    else
-      return results
-    end
-    
-  end
-  
   def self.new(raw_data, expand_results = false, language = nil)
     # expand the result by calling movie unless :expand_results is false or the data is already complete
     # (as determined by checking for the runtime property in the raw data)
