@@ -119,25 +119,6 @@ class TmdbCastTest < Test::Unit::TestCase
       assert_equal @cast_data["name"], actor.name
       assert_equal @cast_data["place_of_birth"], actor.place_of_birth
       assert_equal @cast_data["profile_path"], actor.profile_path
-=begin
-      @cast_data["filmography"].each_index do |x|
-        assert_equal @cast_data["filmography"][x]["name"], actor.filmography[x].name
-        assert_equal @cast_data["filmography"][x]["id"], actor.filmography[x].id
-        assert_equal @cast_data["filmography"][x]["job"], actor.filmography[x].job
-        assert_equal @cast_data["filmography"][x]["department"], actor.filmography[x].department
-        assert_equal @cast_data["filmography"][x]["character"], actor.filmography[x].character
-        assert_equal @cast_data["filmography"][x]["url"], actor.filmography[x].url
-      end
-      @cast_data["profile"].each_index do |x|
-        assert_equal @cast_data["profile"][x]["image"]["type"], actor.profiles[x].type
-        assert_equal @cast_data["profile"][x]["image"]["size"], actor.profiles[x].size
-        assert_equal @cast_data["profile"][x]["image"]["height"], actor.profiles[x].height
-        assert_equal @cast_data["profile"][x]["image"]["width"], actor.profiles[x].width
-        assert_equal @cast_data["profile"][x]["image"]["url"], actor.profiles[x].url
-        assert_equal @cast_data["profile"][x]["image"]["id"], actor.profiles[x].id
-        assert_equal Tmdb.get_url(@cast_data["profile"][x]["image"]["url"]).body, actor.profiles[x].data
-      end
-=end
     end
 
 end
