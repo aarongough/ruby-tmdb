@@ -35,7 +35,7 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
   
   test "find by title should return the full movie data when expand_results set to true" do
-    movie = TmdbMovie.find(:title => "Iron Man", :limit => 1, :expand_results => true)
+    movie = TmdbMovie.find(:title => "Sin City", :limit => 1, :expand_results => true)
     assert_movie_methodized(movie, 187)
   end
   
@@ -93,23 +93,21 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
   
   test "find should not pass language to Tmdb.api_call if language is not supplied" do
-    Tmdb.expects(:api_call).with("movie", {id: 1}, nil).returns([])
-    Tmdb.expects(:api_call).with("Movie.imdbLookup", 1, nil).returns([])
-    Tmdb.expects(:api_call).with("Movie.search", 1, nil).returns([])
+    Tmdb.expects(:api_call).with("movie", {id: "1"}, nil).twice
+    Tmdb.expects(:api_call).with("search/movie", {query: "1"}, nil)
     TmdbMovie.find(:id => 1, :imdb => 1, :title => 1)
   end
   
   test "find should pass through language to Tmdb.api_call when language is supplied" do
-    Tmdb.expects(:api_call).with("movie", {id: 1}, "foo").returns([])
-    Tmdb.expects(:api_call).with("Movie.imdbLookup", 1, "foo").returns([])
-    Tmdb.expects(:api_call).with("Movie.search", 1, "foo").returns([])
+    Tmdb.expects(:api_call).with("movie", {id: "1"}, "foo").twice
+    Tmdb.expects(:api_call).with("search/movie", {query: "1"}, "foo")
     TmdbMovie.find(:id => 1, :imdb => 1, :title => 1, :language => "foo")
   end
   
   test "TmdbMovie.new should raise error if supplied with raw data for movie that doesn't exist" do
-    Tmdb.expects(:api_call).with("movie", {id: "999999999999"}).returns(nil)
+    Tmdb.expects(:api_call).with("movie", {id: "999999999999"}, nil).returns(nil)
     assert_raise ArgumentError do
-      TmdbMovie.new({"id" => "999999999999"}, true)
+      TmdbMovie.new({"id" => 999999999999}, true)
     end
   end
 
@@ -123,21 +121,20 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
   
   test "browse should not pass language to Tmdb.api_call if language is not supplied" do
-    Tmdb.expects(:api_call).with("Movie.browse", {:option => 1}, nil).returns([])
+    Tmdb.expects(:api_call).with("Movie.browse", {:option => "1"}, nil).returns([])
     TmdbMovie.browse(:option => 1)
   end
   
   test "browse should pass through language to Tmdb.api_call when language is supplied" do
-    Tmdb.expects(:api_call).with("Movie.browse", {:option => 1}, "foo").returns([])
+    Tmdb.expects(:api_call).with("Movie.browse", {:option => "1"}, "foo").returns([])
     TmdbMovie.browse(:option => 1, :language => "foo")
   end
 
   private
     
     def assert_movie_methodized(movie, movie_id)
-      @movie_data = Tmdb.api_call("movie", {id: movie_id})
+      @movie_data = Tmdb.api_call("movie", {id: movie_id.to_s})
       assert_equal @movie_data["adult"], movie.adult
-      assert_equal @movie_data["belongs_to_collection"], movie.belongs_to_collection
       assert_equal @movie_data["budget"], movie.budget
       assert_equal @movie_data["homepage"], movie.homepage
       assert_equal @movie_data["id"], movie.id
@@ -146,8 +143,6 @@ class TmdbMovieTest < Test::Unit::TestCase
       assert_equal @movie_data["overview"], movie.overview
       assert_equal @movie_data["popularity"], movie.popularity
       assert_equal @movie_data["poster_path"], movie.poster_path
-      assert_equal @movie_data["production_companies"], movie.production_companies
-      assert_equal @movie_data["production_countries"], movie.production_countries
       assert_equal @movie_data["release_date"], movie.release_date
       assert_equal @movie_data["revenue"], movie.revenue
       assert_equal @movie_data["runtime"], movie.runtime
@@ -155,6 +150,11 @@ class TmdbMovieTest < Test::Unit::TestCase
       assert_equal @movie_data["title"], movie.title
       assert_equal @movie_data["vote_average"], movie.vote_average
       assert_equal @movie_data["vote_count"], movie.vote_count
+
+      assert_equal @movie_data["belongs_to_collection"]["id"], movie.belongs_to_collection.id
+      assert_equal @movie_data["belongs_to_collection"]["name"], movie.belongs_to_collection.name
+      assert_equal @movie_data["belongs_to_collection"]["poster_path"], movie.belongs_to_collection.poster_path
+      assert_equal @movie_data["belongs_to_collection"]["backdrop_path"], movie.belongs_to_collection.backdrop_path
 
       @movie_data["genres"].each_index do |x|
         assert_equal @movie_data["genres"][x]["id"], movie.genres[x].id

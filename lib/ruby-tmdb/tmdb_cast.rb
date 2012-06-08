@@ -9,14 +9,14 @@ class TmdbCast
     
     results = []
     unless(options[:id].nil? || options[:id].to_s.empty?)
-      results << Tmdb.api_call("person", {id: options[:id]}, options[:language])
+      results << Tmdb.api_call("person", {id: options[:id].to_s}, options[:language])
     end
     unless(options[:name].nil? || options[:name].to_s.empty?)
       api_return = Tmdb.api_call('search/person', {query: options[:name]}, options[:language])
       results << api_return["results"] if api_return
     end
     
-    results.flatten!
+    results.flatten!(1)
     results.uniq!
     results.delete_if &:nil?
     
@@ -39,7 +39,7 @@ class TmdbCast
     # (as determined by checking for the 'birthday' property)
     if(expand_results && !raw_data.has_key?("birthday"))
       begin
-        expanded_data = Tmdb.api_call("person", {id: raw_data["id"]}, language)
+        expanded_data = Tmdb.api_call("person", {id: raw_data["id"].to_s}, language)
       rescue RuntimeError => e
         raise ArgumentError, "Unable to fetch expanded info for Cast ID: '#{raw_data["id"]}'" if expanded_data.nil?
       end
