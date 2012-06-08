@@ -12,7 +12,7 @@ class TmdbCast
       results << Tmdb.api_call("person", {id: options[:id].to_s}, options[:language])
     end
     unless(options[:name].nil? || options[:name].to_s.empty?)
-      api_return = Tmdb.api_call('search/person', {query: options[:name]}, options[:language])
+      api_return = Tmdb.api_call('search/person', {query: options[:name].to_s}, options[:language])
       results << api_return["results"] if api_return
     end
     

@@ -84,19 +84,19 @@ class TmdbCastTest < Test::Unit::TestCase
       end
     end
   end
-=begin
+
   test "should not pass language to Tmdb.api_call if language is not supplied" do
-    Tmdb.expects(:api_call).with("person", {id: 1}, nil).returns([])
-    Tmdb.expects(:api_call).with("search/person", {id: 1}, nil).returns([])
+    Tmdb.expects(:api_call).with("person", {id: "1"}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("search/person", {query: "1"}, nil).returns(nil)
     TmdbCast.find(:id => 1, :name => 1)
   end
 
   test "should pass through language to Tmdb.api_call when language is supplied" do
-    Tmdb.expects(:api_call).with("person", {id: 1}, "foo").returns([])
-    Tmdb.expects(:api_call).with("search/person", {id: 1}, "foo").returns([])
+    Tmdb.expects(:api_call).with("person", {id: "1"}, "foo").returns(nil)
+    Tmdb.expects(:api_call).with("search/person", {query: "1"}, "foo").returns(nil)
     TmdbCast.find(:id => 1, :name => 1, :language => "foo")
   end
-=end
+
   test "TmdbCast.new should raise error if supplied with raw data for cast member that doesn't exist" do
     Tmdb.expects(:api_call).with("person", {id: "999999999999"}, nil).returns(nil)
     assert_raise ArgumentError do
