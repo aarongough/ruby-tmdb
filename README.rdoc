@@ -16,14 +16,8 @@ ruby-tmdb is an ActiveRecord-style API wrapper for {TheMovieDB.org (TMDb)}[http:
   @movie = TmdbMovie.find(:title => "Iron Man", :limit => 1)
   # => <OpenStruct>
   
-  @movie.name
+  @movie.title
   # => "Iron Man"
-  
-  @movie.posters.length
-  # => 12
-  
-  @movie.posters.first.data
-  # => [binary blob representing JPEG]
   
 === Installation
 
@@ -52,23 +46,11 @@ Parameters:
 
 You must supply at least one of :id, :title, or :imdb. All other parameters are optional.
 
-==== TmdbMovie.browse([query_options],[:language, :expand_results])
-
-Find information about a set of movies grouped by one or more defined criteria, eg:
-  
-  TmdbMovie.browse(:order_by => "rating", :order => "desc", :genres => 18, :min_votes => 5, :page => 1, :per_page => 10, :language => "en", :expand_results => true)
-  
-Parameters:
-
-[query_options]    These are defined by the TMDB.org API, for more info on which options are available please have a look at the {'browse' API documentation}[http://api.themoviedb.org/2.1/methods/Movie.browse]
-[:expand_results]  See TmdbMovie
-[:language]        See TmdbMovie
-  
 ==== TmdbCast.find([:id, :name, :limit, :expand_results, :language])
 
 Find information about an individual cast member, or a set of cast members sharing similar names, eg:
 
-  TmdbCast.find( :id => 123, :name => "Brad", :limit => 1, :expand_results => true, :language => "fr")
+  TmdbCast.find( :id => 123, :name => "Brad", :limit => 1, :expand_results => true)
   
 [:id]              Specifies an individual cast member via their TMDb id
 [:name]            Specifies a query string to look for in the cast names
@@ -112,7 +94,7 @@ Get the info for a movie in French:
 
 === Item information
   
-To find out more about the information each object offers on retrieved items have a look at the {TMDb API Docs}[http://api.themoviedb.org/2.1]. For the most accurate information about the information available have a look at the data directly through ruby-tmdb by calling @item.raw_data.inspect
+To find out more about the information each object offers on retrieved items have a look at the {TMDb API Docs}[http://help.themoviedb.org/kb/api/about-3]. For the most accurate information about the information available have a look at the data directly through ruby-tmdb by calling @item.raw_data.inspect
 
 === Author & Credits
 
