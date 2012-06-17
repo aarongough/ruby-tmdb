@@ -9,13 +9,8 @@ unless(TEST_LIVE_API)
   include WebMock
 end
 
-require_files = []
-require_files << File.join(File.dirname(__FILE__), '..', 'lib', 'ruby-tmdb.rb')
-require_files.concat Dir[File.join(File.dirname(__FILE__), 'setup', '*.rb')]
+require 'ruby-tmdb'
 
-require_files.each do |file|
-  require File.expand_path(file)
-end
+Dir[File.join(File.dirname(__FILE__), 'setup', '*.rb')].each {|file| require File.expand_path(file)}
 
-#load(File.join('unit', 'test_direct_require.rb'), true)
 system('ruby ' + File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'test_direct_require.rb')))
