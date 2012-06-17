@@ -12,5 +12,3 @@ end
 require 'ruby-tmdb'
 
 Dir[File.join(File.dirname(__FILE__), 'setup', '*.rb')].each {|file| require File.expand_path(file)}
-
-system('ruby ' + File.expand_path(File.join(File.dirname(__FILE__), 'unit', 'test_direct_require.rb')))

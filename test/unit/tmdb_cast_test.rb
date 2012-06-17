@@ -97,7 +97,7 @@ class TmdbCastTest < Test::Unit::TestCase
   end
   
   test "TmdbCast.new should raise error if supplied with raw data for cast member that doesn't exist" do
-    Tmdb.expects(:api_call).with('Person.getInfo', "1").returns(nil)
+    Tmdb.expects(:api_call).with('Person.getInfo', "1", nil).returns(nil)
     assert_raise ArgumentError do
       TmdbCast.new({"id" => "1"}, true)
     end
