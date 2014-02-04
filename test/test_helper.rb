@@ -6,7 +6,7 @@ require 'mocha'
 
 unless(TEST_LIVE_API)
   require 'webmock/test_unit'
-  include WebMock
+  include WebMock::API
 end
 
 require 'ruby-tmdb'
